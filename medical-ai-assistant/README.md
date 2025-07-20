@@ -21,7 +21,7 @@ COLLECTION_NAME=medical_documents
 ### 3. Start Qdrant Database
 Using Docker Compose (recommended):
 ```bash
-docker compose -f docker-compose.db.yml up
+docker compose -f docker-compose.db.yml up -d
 ```
 
 Or using Docker directly:
@@ -29,7 +29,27 @@ Or using Docker directly:
 docker run -p 6333:6333 qdrant/qdrant
 ```
 
-### 4. Run Demo
+**Verify Qdrant is Running:**
+```bash
+# Check container status
+docker ps
+
+# Test API connection (should return JSON with version info)
+curl http://localhost:6333/
+
+# Access Qdrant Dashboard in browser
+http://localhost:6333/dashboard
+```
+
+### 4. Access Qdrant Dashboard (Optional)
+Open your browser and go to: **http://localhost:6333/dashboard**
+
+You can use the dashboard to:
+- View collections and vectors
+- Monitor database status
+- Explore your ingested documents
+
+### 5. Run Demo
 ```bash
 python demo.py
 ```

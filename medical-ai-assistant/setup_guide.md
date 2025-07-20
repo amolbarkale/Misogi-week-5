@@ -34,7 +34,7 @@ pip install -r requirements.txt
 
 **Option A: Docker Compose (Recommended)**
 ```bash
-docker-compose up -d
+docker compose -f docker-compose.db.yml up -d
 ```
 
 **Option B: Direct Docker**
@@ -118,10 +118,16 @@ print(f"Found in: {', '.join(result['sources'])}")
 **2. Qdrant Connection Issues**
 ```bash
 # Check if Qdrant is running
-curl http://localhost:6333/health
+curl http://localhost:6333/
+
+# Check container status
+docker ps
 
 # View Qdrant logs
-docker-compose logs qdrant
+docker compose -f docker-compose.db.yml logs qdrant
+
+# Access Qdrant Dashboard
+# Open in browser: http://localhost:6333/dashboard
 ```
 
 **3. PDF Processing Errors**
@@ -137,11 +143,17 @@ docker-compose logs qdrant
 ### Verification Commands
 
 ```bash
+# Check Qdrant is running (should return version info)
+curl http://localhost:6333/
+
 # Check Qdrant collections
 curl http://localhost:6333/collections
 
-# Check collection info
+# Check collection info (after ingesting PDFs)
 curl http://localhost:6333/collections/medical_research
+
+# Access Qdrant Web Dashboard
+# Open in browser: http://localhost:6333/dashboard
 
 # Test Gemini API
 python -c "from src.core.gemini_client import get_gemini_client; print(get_gemini_client().chat('Test'))"
