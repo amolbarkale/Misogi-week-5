@@ -21,7 +21,7 @@ COLLECTION_NAME=medical_documents
 ### 3. Start Qdrant Database
 Using Docker Compose (recommended):
 ```bash
-docker-compose up -d
+docker compose -f docker-compose.db.yml up
 ```
 
 Or using Docker directly:
