@@ -2,6 +2,7 @@
 google-generativeai>=0.4.0
 langchain-community
 langchain-google-genai
+
 langchain-text-splitters
 langchain-qdrant
 
@@ -17,6 +18,13 @@ qdrant-client
 
 # Async Support
 aiofiles
+
+# Web UI Framework
+streamlit
+
+# RAGAS Evaluation Framework
+ragas
+datasets
 
 # Optional: Web Framework (for future API development)
 fastapi

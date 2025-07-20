@@ -49,9 +49,29 @@ You can use the dashboard to:
 - Monitor database status
 - Explore your ingested documents
 
-### 5. Run Demo
+### 5. Launch Web UI (Recommended)
+```bash
+streamlit run streamlit_app.py
+```
+**Features:**
+- 🔍 Interactive question asking
+- 📚 Source tracking and display  
+- 💬 Conversation history
+- 🧪 **RAGAS evaluation testing**
+- ⚙️ Configurable retrieval settings
+
+### 6. Run Command Line Demo
 ```bash
 python demo.py
+```
+
+### 7. Run RAGAS Evaluation
+```bash
+# Comprehensive evaluation
+python run_ragas_evaluation.py
+
+# Quick evaluation  
+python run_ragas_evaluation.py --quick
 ```
 
 ## Usage
@@ -90,6 +110,8 @@ print(f"Sources: {result['sources']}")
 - ✅ **Vector Search**: Semantic search using Gemini embeddings  
 - ✅ **RAG Query**: Context-aware responses with Gemini Flash 2
 - ✅ **Source Tracking**: Track which documents provide answers
+- ✅ **Web UI**: Beautiful Streamlit interface for interactive querying
+- ✅ **RAGAS Evaluation**: Automated testing for faithfulness, relevancy, precision, recall
 - ✅ **Docker Compose**: Easy Qdrant database setup
 
 ## Architecture
