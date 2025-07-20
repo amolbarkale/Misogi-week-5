@@ -1,0 +1,7 @@
+1. BatchAPI processing 
+2. Giskard html generator 
+3. Asyncio
+4. RAGAS
+5. Qdrant db with query decomposition
+6. Dockerized APIs
+7. Caching
