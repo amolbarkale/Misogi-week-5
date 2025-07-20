@@ -1,0 +1,12 @@
+streamlit
+fastapi "uvicorn[standard]"
+sentence-transformers 
+qdrant-client 
+bge-reranker 
+tiktoken
+psycopg2-binary 
+redis
+python-multipart 
+python-dotenv 
+requests
+ragas

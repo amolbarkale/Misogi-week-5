@@ -1,0 +1,70 @@
+Think as a highly experienced AI engineer who completes projects smartly with a simpler approaches and wise structured designing. 
+Create a strategic plan for how you would approach the newly created assignment. DO NOT CODE yet.
+
+Assignment -
+# 📝 Assignment — **AI Learning Engine**  
+*Turn your notes, slides, flow‑charts, and textbooks into an always‑on AI tutor.*
+
+---
+
+## 🎯 Objective  
+Create a **personal AI learning platform** that digests **all** of your AI‑related study materials—PDF notes, markdown cheat‑sheets, hand‑drawn architecture diagrams, lecture slide decks, flow‑charts, research papers—and turns them into an interactive, citation‑rich tutor that helps you explore every concept with “infinite potential.”
+
+---
+
+## ✅ Core Requirements  
+
+1. **Document Upload & Processing**  
+   - Ingest lecture notes, slide decks, textbooks, research papers, and diagrams.  
+
+2. **Query Decomposition**  
+   - Break complex learning objectives into prerequisite concepts and sub‑topics.  
+
+3. **Contextual Compression**  
+   - Filter relevant educational insights from extensive study materials.  
+
+4. **Hybrid RAG**  
+   - Combine dense + sparse retrieval for comprehensive academic understanding.  
+
+5. **Advanced Reranking**  
+   - Employ a multi‑model ensemble—including cross‑encoder models—for pedagogically relevant results.  
+
+6. **Citation‑based Responses**  
+   - Provide source tracking for all explanations and references.  
+
+7. **RAGAS Evaluation**  
+   - Integrate the RAGAS framework to measure **Faithfulness, Answer Relevancy, Context Precision, Context Recall,** and **Answer Correctness**.  
+
+---
+
+## 🛠️ Technical Requirements  
+
+| Layer | Tech Stack / Tools |
+| ----- | ------------------ |
+| **Backend** | FastAPI **or** Node.js |
+| **Frontend** | Streamlit **or** React dashboard with data‑visualization components |
+| **Databases** | PostgreSQL **or** MongoDB &nbsp;•&nbsp; **Vector DB** (e.g., Qdrant, Pinecone) for document embeddings |
+| **Caching** | Redis for document chunks, analysis results, and user sessions |
+| **Tool Calling** | External APIs (market data, research repositories) as needed |
+| **LLMs** | Multiple models optimized for distinct educational analysis tasks |
+| **Charts & Tables** | Render structured tables and dynamic charts directly from generated responses |
+
+---
+
+## 📚 Use‑Cases (Education‑Centric)
+
+1. **“Create a Learning SWOT Analysis of my current AI skill set using my uploaded lecture notes and the latest research trends.”**
+
+2. **“Generate personalized recommendations for knowledge‑expansion—identify the next topics I should study and the best resources from my own materials to master them.”**
+
+---
+
+## 🔖 Deliverables
+
+- **Source‑code repository** with clear setup instructions  
+- **Demo video / live link** showcasing end‑to‑end workflow  
+- **Technical report** summarizing architecture, design choices, RAGAS scores, and future improvements  
+
+---
+
+> **Tip:** Focus on modular design—keep ingestion, retrieval, reranking, and evaluation loosely coupled so each piece can evolve independently.
