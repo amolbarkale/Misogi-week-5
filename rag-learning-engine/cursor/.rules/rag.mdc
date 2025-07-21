@@ -1,577 +1,665 @@
 ---
 alwaysApply: true
 ---
-# 🔍 Advanced RAG Search Pipeline - Business Intelligence Engine
+# Advanced RAG Search Pipeline - Educational Intelligence Engine
 
-## 🎯 Mission: Build a Robust RAG System for Strategic Business Analysis
+##  Mission: Build a Robust RAG System for Academic Learning & Education
 
-Transform complex business documents into actionable strategic insights through advanced retrieval, reranking, and generation techniques.
-
----
-
-## 📋 RAG Pipeline Requirements
-
-### 🎯 **Business Intelligence Focus**
-- **Document Types**: Company reports, financial data, market research, strategic documents
-- **Query Types**: Strategic questions, competitive analysis, market insights, financial trends
-- **Output**: Actionable business recommendations with precise source attribution
-
-### ⚡ **Performance Targets**
-- **Retrieval Accuracy**: >85% relevance for business queries
-- **Response Time**: <3 seconds for complex strategic questions
-- **Citation Precision**: 100% traceable sources with confidence scores
-- **Context Coverage**: Handle 10K+ page documents efficiently
+Transform complex educational materials into personalized learning experiences through advanced retrieval, reranking, and pedagogically-aware generation techniques.
 
 ---
 
-## 🏗️ RAG Architecture Overview
+## RAG Pipeline Requirements
+
+###  **Educational Intelligence Focus**
+- **Document Types**: Lecture notes, slide decks, textbooks, research papers, diagrams
+- **Query Types**: Learning objectives, concept explanations, prerequisite analysis, academic understanding
+- **Output**: Pedagogically structured responses with comprehensive source citations
+
+### **Performance Targets**
+- **Retrieval Accuracy**: >90% relevance for educational queries
+- **Response Time**: <3 seconds for complex learning questions
+- **Citation Precision**: 100% traceable academic sources with confidence scores
+- **Learning Coverage**: Handle multi-modal educational content efficiently
+
+---
+
+## RAG Architecture Overview
 
 ```
-Business Query → Query Decomposition → Hybrid Retrieval → Multi-Stage Reranking → Business LLM → Strategic Response
-       ↓                ↓                    ↓                    ↓                ↓               ↓
-   Intent Analysis  Sub-queries +     Dense + Sparse +     Cross-encoder +    Context +      Citations +
-   Strategic Type   Dependencies      Graph Search         Business Score     Compression     Recommendations
+Learning Query → Query Decomposition → Hybrid Retrieval → Cross-Encoder Reranking → Educational LLM → Pedagogical Response
+       ↓                ↓                    ↓                      ↓                    ↓                ↓
+   Intent Analysis  Sub-concepts +     Dense + Sparse +      Cross-encoder +       Context +       Citations +
+   Learning Type    Prerequisites    Academic Search        Pedagogical Score    Compression     Learning Path
 ```
 
 ---
 
-## 🔄 RAG Pipeline Stages
+## RAG Pipeline Stages
 
-### 1️⃣ **Document Processing & Ingestion**
+### 1 **Document Processing & Ingestion**
 ```
-Business Documents → Multi-Modal Extraction → Semantic Chunking → Metadata Enrichment → Vector Storage
+Educational Documents → Multi-Modal Extraction → Academic Chunking → Knowledge Enrichment → Vector Storage
 ```
 
 **Key Components:**
-- **Document Types**: PDF reports, Excel sheets, PowerPoint decks, web articles
-- **Content Extraction**: Tables, charts, financial data, text, images
-- **Business Context**: Company names, financial metrics, market segments, dates
-- **Chunk Strategy**: Business-aware chunking (sections, topics, time periods)
+- **Document Types**: PDF textbooks, PowerPoint lectures, research papers, handwritten notes, diagrams
+- **Content Extraction**: Text, equations, diagrams, tables, code snippets, citations
+- **Academic Context**: Concepts, definitions, theorems, examples, prerequisites
+- **Chunk Strategy**: Knowledge-aware chunking (chapters, sections, concepts, examples)
 
-### 2️⃣ **Query Analysis & Decomposition**
+### 2 **Query Analysis & Decomposition**
 ```
-Strategic Question → Intent Classification → Query Decomposition → Sub-query Generation → Routing Strategy
+Learning Question → Intent Classification → Query Decomposition → Sub-concept Generation → Learning Path Routing
 ```
 
 **Query Types:**
-- **Competitive Analysis**: "How does our market share compare to competitors?"
-- **Financial Trends**: "What are the revenue growth patterns in Q4?"
-- **Strategic Planning**: "What market opportunities should we pursue?"
-- **Risk Assessment**: "What are the key business risks mentioned in reports?"
+- **Concept Explanation**: "Explain gradient descent with examples from my materials"
+- **Prerequisite Analysis**: "What concepts do I need to understand before machine learning?"
+- **Comparative Learning**: "Compare different optimization algorithms from my textbooks"
+- **Problem Solving**: "Show me examples of dynamic programming from my course notes"
 
-### 3️⃣ **Hybrid Retrieval System**
+### 3 **Hybrid Retrieval System**
 ```
-Query Embedding → Dense Search → Sparse Search → Graph Traversal → Result Fusion → Top-K Candidates
+Query Embedding → Dense Search → Sparse Search → Knowledge Graph → Result Fusion → Top-K Candidates
 ```
 
-**Multi-Vector Approach:**
-- **Dense Retrieval**: Semantic similarity using business-tuned embeddings
-- **Sparse Retrieval**: Keyword-based search with business term weighting
-- **Graph Retrieval**: Entity relationships (companies, markets, products)
-- **Temporal Retrieval**: Time-aware search for trend analysis
+**Multi-Vector Academic Approach:**
+- **Dense Retrieval**: Semantic similarity using education-tuned embeddings
+- **Sparse Retrieval**: Keyword-based search with academic term weighting
+- **Knowledge Graph**: Concept relationships (prerequisites, dependencies, applications)
+- **Difficulty-Aware**: Progressive complexity matching for learning paths
 
-### 4️⃣ **Advanced Reranking Pipeline**
+### 4 **Advanced Cross-Encoder Reranking Pipeline**
 ```
-Retrieved Results → Business Relevance Scoring → Cross-Encoder Reranking → Context Compression → Final Ranking
+Retrieved Results → Pedagogical Scoring → Cross-Encoder Reranking → Educational Value → Context Optimization
 ```
 
 **Multi-Model Ensemble:**
-- **Business Relevance**: Strategic importance, financial impact, actionability
-- **Cross-Encoder**: Query-document semantic matching
-- **Temporal Relevance**: Recency and trend significance
-- **Source Authority**: Document credibility and reliability
+- **Cross-Encoder Models**: Query-document semantic matching with educational fine-tuning
+- **Pedagogical Relevance**: Learning effectiveness, clarity, example richness
+- **Prerequisite Alignment**: Concept dependency and learning progression
+- **Difficulty Appropriateness**: Matching complexity to learner level
 
-### 5️⃣ **Context Optimization & Compression**
+### 5 **Context Optimization & Compression**
 ```
-Top Results → Redundancy Removal → Key Insight Extraction → Context Assembly → Token Optimization
+Top Results → Knowledge Extraction → Concept Assembly → Learning Coherence → Token Optimization
 ```
 
-**Smart Compression:**
-- **Business Priority**: Financial data > strategic insights > background info
-- **Diversity**: Multiple perspectives and data sources
-- **Coherence**: Logical flow for strategic decision-making
+**Educational Compression:**
+- **Knowledge Priority**: Definitions > examples > applications > background
+- **Learning Progression**: Logical concept flow and dependencies
+- **Pedagogical Coherence**: Clear explanations with supporting examples
 
-### 6️⃣ **Business-Aware Generation**
+### 6 **Educational Response Generation**
 ```
-Optimized Context → Strategic Prompting → Multi-LLM Generation → Business Formatting → Citation Integration
+Optimized Context → Pedagogical Prompting → Multi-LLM Generation → Academic Formatting → Citation Integration
 ```
 
 **Generation Strategy:**
-- **Strategic Framing**: Executive summary, key insights, recommendations
-- **Business Language**: Professional tone, industry terminology
-- **Actionable Outputs**: Clear next steps and decision points
+- **Learning Structure**: Concept introduction, explanation, examples, practice
+- **Academic Language**: Clear explanations with appropriate terminology
+- **Interactive Elements**: Questions, exercises, and learning checkpoints
 
 ---
 
-## 🛠️ Technical Implementation
+## Technical Implementation
 
-### 📊 **Document Processing Pipeline**
+### **Educational Document Processor**
 
 ```python
-# Business Document Processor
-class BusinessDocumentProcessor:
+# Educational Document Processor
+class EducationalDocumentProcessor:
     def __init__(self):
-        self.pdf_extractor = AdvancedPDFExtractor()
-        self.table_extractor = TableExtractor()
-        self.financial_parser = FinancialDataParser()
-        self.entity_extractor = BusinessEntityExtractor()
+        self.pdf_extractor = AcademicPDFExtractor()
+        self.diagram_extractor = DiagramExtractor()
+        self.equation_parser = MathEquationParser()
+        self.concept_extractor = ConceptExtractor()
+        self.citation_parser = CitationParser()
     
     async def process_document(self, file_path: str) -> ProcessedDocument:
-        # Extract content with business context
-        content = await self.extract_business_content(file_path)
+        # Extract content with academic context
+        content = await self.extract_educational_content(file_path)
         
-        # Parse financial data and metrics
-        financial_data = self.financial_parser.extract_metrics(content)
+        # Parse mathematical equations and formulas
+        equations = self.equation_parser.extract_equations(content)
         
-        # Extract business entities (companies, products, markets)
-        entities = self.entity_extractor.extract_entities(content)
+        # Extract educational concepts and definitions
+        concepts = self.concept_extractor.extract_concepts(content)
         
-        # Create business-aware chunks
-        chunks = self.create_strategic_chunks(content, entities, financial_data)
+        # Parse academic citations and references
+        citations = self.citation_parser.extract_citations(content)
         
-        return ProcessedDocument(content, chunks, entities, financial_data)
-```
-
-### 🔍 **Query Decomposition Engine**
-
-```python
-# Strategic Query Analyzer
-class StrategyQueryAnalyzer:
-    def __init__(self):
-        self.intent_classifier = BusinessIntentClassifier()
-        self.entity_extractor = QueryEntityExtractor()
-        self.decomposer = QueryDecomposer()
-    
-    async def analyze_query(self, query: str) -> QueryAnalysis:
-        # Classify business intent
-        intent = self.intent_classifier.classify(query)
-        # competitive_analysis, financial_trend, market_opportunity, risk_assessment
+        # Create knowledge-aware chunks
+        chunks = self.create_educational_chunks(content, concepts, equations)
         
-        # Extract business entities from query
-        entities = self.entity_extractor.extract(query)
-        # companies, products, markets, time_periods, metrics
-        
-        # Decompose complex strategic questions
-        sub_queries = self.decomposer.decompose(query, intent, entities)
-        
-        return QueryAnalysis(
-            original_query=query,
-            intent=intent,
-            entities=entities,
-            sub_queries=sub_queries,
-            routing_strategy=self.determine_routing(intent)
+        return ProcessedDocument(
+            content=content, 
+            chunks=chunks, 
+            concepts=concepts, 
+            equations=equations,
+            citations=citations
         )
 ```
 
-### ⚡ **Hybrid Retrieval Engine**
+### **Learning Query Analyzer**
 
 ```python
-# Advanced Business Retrieval System
-class HybridBusinessRetriever:
+# Educational Query Analyzer
+class EducationalQueryAnalyzer:
     def __init__(self):
-        self.dense_retriever = BusinessDenseRetriever()
-        self.sparse_retriever = BusinessSparseRetriever()
-        self.graph_retriever = EntityGraphRetriever()
-        self.temporal_retriever = TemporalRetriever()
-        self.fusion_engine = ReciprocalRankFusion()
+        self.intent_classifier = LearningIntentClassifier()
+        self.concept_extractor = QueryConceptExtractor()
+        self.decomposer = LearningQueryDecomposer()
+        self.prerequisite_mapper = PrerequisiteMapper()
     
-    async def retrieve(self, query_analysis: QueryAnalysis, top_k: int = 100) -> List[SearchResult]:
-        # Multi-vector dense retrieval
+    async def analyze_query(self, query: str) -> LearningAnalysis:
+        # Classify learning intent
+        intent = self.intent_classifier.classify(query)
+        # concept_explanation, prerequisite_analysis, problem_solving, comparative_learning
+        
+        # Extract educational concepts from query
+        concepts = self.concept_extractor.extract(query)
+        # topics, algorithms, theorems, definitions, examples
+        
+        # Decompose complex learning questions
+        sub_queries = self.decomposer.decompose(query, intent, concepts)
+        
+        # Map prerequisite relationships
+        prerequisites = self.prerequisite_mapper.map_dependencies(concepts)
+        
+        return LearningAnalysis(
+            original_query=query,
+            intent=intent,
+            concepts=concepts,
+            prerequisites=prerequisites,
+            sub_queries=sub_queries,
+            difficulty_level=self.estimate_difficulty(concepts),
+            learning_path=self.generate_learning_path(concepts, prerequisites)
+        )
+```
+
+### **Hybrid Educational Retriever**
+
+```python
+# Advanced Educational Retrieval System
+class HybridEducationalRetriever:
+    def __init__(self):
+        self.dense_retriever = EducationalDenseRetriever()
+        self.sparse_retriever = AcademicSparseRetriever()
+        self.knowledge_retriever = ConceptGraphRetriever()
+        self.difficulty_retriever = DifficultyAwareRetriever()
+        self.fusion_engine = EducationalRankFusion()
+    
+    async def retrieve(self, learning_analysis: LearningAnalysis, top_k: int = 100) -> List[SearchResult]:
+        # Multi-vector dense retrieval with educational embeddings
         dense_results = await self.dense_retriever.search(
             query_analysis.embedding,
             filters={
-                "entities": query_analysis.entities,
-                "intent": query_analysis.intent
+                "concepts": learning_analysis.concepts,
+                "intent": learning_analysis.intent,
+                "difficulty": learning_analysis.difficulty_level
             }
         )
         
-        # Business-aware sparse retrieval
+        # Academic-aware sparse retrieval
         sparse_results = await self.sparse_retriever.search(
-            query_analysis.keywords,
-            business_terms=query_analysis.business_terms,
-            boost_financial=True
+            learning_analysis.keywords,
+            academic_terms=learning_analysis.academic_terms,
+            boost_definitions=True,
+            boost_examples=True
         )
         
-        # Entity relationship traversal
-        graph_results = await self.graph_retriever.traverse(
-            query_analysis.entities,
-            relationship_types=["competitor", "market", "supplier"]
+        # Knowledge graph traversal
+        knowledge_results = await self.knowledge_retriever.traverse(
+            learning_analysis.concepts,
+            relationship_types=["prerequisite", "application", "example", "related_concept"]
         )
         
-        # Temporal pattern matching
-        temporal_results = await self.temporal_retriever.search(
-            query_analysis.time_context,
-            trend_analysis=True
+        # Difficulty-progressive retrieval
+        difficulty_results = await self.difficulty_retriever.search(
+            learning_analysis.difficulty_level,
+            progressive_learning=True,
+            concept_scaffolding=True
         )
         
-        # Fuse results with business-weighted scoring
+        # Fuse results with educational weighting
         final_results = self.fusion_engine.fuse(
-            [dense_results, sparse_results, graph_results, temporal_results],
-            weights=[0.4, 0.3, 0.2, 0.1]  # Adjust based on query intent
+            [dense_results, sparse_results, knowledge_results, difficulty_results],
+            weights=[0.4, 0.25, 0.25, 0.1]  # Adjust based on learning intent
         )
         
         return final_results[:top_k]
 ```
 
-### 🎯 **Multi-Stage Reranking System**
+###  **Cross-Encoder Reranking System**
 
 ```python
-# Business-Aware Reranking Pipeline
-class BusinessReranker:
+# Educational Cross-Encoder Reranking Pipeline
+class EducationalCrossEncoderReranker:
     def __init__(self):
-        self.cross_encoder = BusinessCrossEncoder()
-        self.relevance_scorer = BusinessRelevanceScorer()
-        self.credibility_scorer = SourceCredibilityScorer()
-        self.impact_scorer = BusinessImpactScorer()
+        self.cross_encoder_models = {
+            "general": CrossEncoder("ms-marco-MiniLM-L-6-v2"),
+            "educational": CrossEncoder("educational-reranker-v1"),
+            "academic": CrossEncoder("academic-paper-reranker"),
+            "mathematical": CrossEncoder("math-concept-reranker")
+        }
+        self.pedagogical_scorer = PedagogicalRelevanceScorer()
+        self.concept_scorer = ConceptAlignmentScorer()
+        self.clarity_scorer = ExplanationClarityScorer()
     
-    async def rerank(self, query: str, results: List[SearchResult]) -> List[RankedResult]:
+    async def rerank(self, query: str, results: List[SearchResult], 
+                    learning_context: LearningAnalysis) -> List[RankedResult]:
         reranked_results = []
+        
+        # Select appropriate cross-encoder based on content type
+        primary_encoder = self.select_cross_encoder(learning_context.intent)
         
         for result in results:
             # Cross-encoder semantic scoring
-            semantic_score = self.cross_encoder.score(query, result.content)
+            cross_encoder_score = primary_encoder.predict([query, result.content])[0]
             
-            # Business relevance scoring
-            relevance_score = self.relevance_scorer.score(
+            # Pedagogical relevance scoring
+            pedagogical_score = self.pedagogical_scorer.score(
                 content=result.content,
-                query_intent=result.query_intent,
-                business_entities=result.entities
+                learning_objective=query,
+                difficulty_level=learning_context.difficulty_level,
+                concept_clarity=result.concept_definitions,
+                example_richness=result.examples
             )
             
-            # Source credibility scoring
-            credibility_score = self.credibility_scorer.score(
-                document_type=result.doc_type,
-                source_authority=result.source_authority,
-                publication_date=result.date
+            # Concept alignment scoring
+            concept_score = self.concept_scorer.score(
+                content=result.content,
+                target_concepts=learning_context.concepts,
+                prerequisite_coverage=result.prerequisite_concepts,
+                learning_progression=result.learning_sequence
             )
             
-            # Business impact scoring
-            impact_score = self.impact_scorer.score(
-                financial_implications=result.financial_data,
-                strategic_importance=result.strategic_value,
-                actionability=result.actionability
+            # Explanation clarity scoring
+            clarity_score = self.clarity_scorer.score(
+                content=result.content,
+                explanation_structure=result.explanation_quality,
+                visual_aids=result.diagrams_present,
+                worked_examples=result.example_solutions
             )
             
-            # Weighted final score
+            # Educational authority scoring
+            authority_score = self.score_educational_authority(
+                source_type=result.source_type,  # textbook, lecture, paper
+                author_credibility=result.author_info,
+                publication_venue=result.venue,
+                citation_count=result.citations
+            )
+            
+            # Weighted final score optimized for learning
             final_score = (
-                semantic_score * 0.3 +
-                relevance_score * 0.35 +
-                credibility_score * 0.2 +
-                impact_score * 0.15
+                cross_encoder_score * 0.35 +      # Semantic relevance
+                pedagogical_score * 0.30 +        # Learning effectiveness
+                concept_score * 0.20 +            # Concept alignment
+                clarity_score * 0.10 +            # Explanation quality
+                authority_score * 0.05            # Source credibility
             )
             
             reranked_results.append(RankedResult(
                 content=result.content,
                 score=final_score,
                 scores_breakdown={
-                    "semantic": semantic_score,
-                    "relevance": relevance_score,
-                    "credibility": credibility_score,
-                    "impact": impact_score
-                }
+                    "cross_encoder": cross_encoder_score,
+                    "pedagogical": pedagogical_score,
+                    "concept_alignment": concept_score,
+                    "clarity": clarity_score,
+                    "authority": authority_score
+                },
+                learning_value=pedagogical_score,
+                prerequisite_coverage=concept_score
             ))
         
         return sorted(reranked_results, key=lambda x: x.score, reverse=True)
+    
+    def select_cross_encoder(self, intent: str) -> CrossEncoder:
+        """Select appropriate cross-encoder based on learning intent"""
+        if intent == "mathematical_concept":
+            return self.cross_encoder_models["mathematical"]
+        elif intent == "research_question":
+            return self.cross_encoder_models["academic"]
+        elif intent == "concept_explanation":
+            return self.cross_encoder_models["educational"]
+        else:
+            return self.cross_encoder_models["general"]
 ```
 
-### 🗜️ **Context Compression Engine**
+### **Educational Context Compressor**
 
 ```python
-# Strategic Context Optimizer
-class BusinessContextCompressor:
+# Pedagogical Context Optimizer
+class EducationalContextCompressor:
     def __init__(self):
-        self.importance_scorer = BusinessImportanceScorer()
-        self.redundancy_detector = RedundancyDetector()
-        self.coherence_optimizer = CoherenceOptimizer()
+        self.importance_scorer = LearningImportanceScorer()
+        self.redundancy_detector = ConceptRedundancyDetector()
+        self.coherence_optimizer = LearningCoherenceOptimizer()
+        self.progression_builder = LearningProgressionBuilder()
     
     async def compress_context(self, ranked_results: List[RankedResult], 
-                             max_tokens: int = 8000) -> CompressedContext:
+                             max_tokens: int = 8000,
+                             learning_context: LearningAnalysis = None) -> CompressedContext:
         
-        # Score content importance for business decisions
+        # Score content importance for learning objectives
         importance_scores = [
             self.importance_scorer.score(
                 content=result.content,
-                financial_data=result.financial_data,
-                strategic_value=result.strategic_value
+                learning_objective=learning_context.intent,
+                concept_definitions=result.concept_definitions,
+                examples=result.examples,
+                prerequisite_coverage=result.prerequisite_coverage
             ) for result in ranked_results
         ]
         
-        # Remove redundant information
-        unique_insights = self.redundancy_detector.remove_duplicates(
+        # Remove conceptually redundant information
+        unique_concepts = self.redundancy_detector.remove_duplicates(
             ranked_results, 
-            similarity_threshold=0.85
+            concept_similarity_threshold=0.85,
+            preserve_different_perspectives=True
         )
         
-        # Optimize for coherent business narrative
+        # Build logical learning progression
+        learning_sequence = self.progression_builder.build_sequence(
+            unique_concepts,
+            prerequisites=learning_context.prerequisites,
+            difficulty_progression=True
+        )
+        
+        # Optimize for coherent educational narrative
         optimized_context = self.coherence_optimizer.optimize(
-            unique_insights,
+            learning_sequence,
             max_tokens=max_tokens,
-            narrative_structure="executive_summary"
+            narrative_structure="educational_progression",
+            include_examples=True,
+            include_practice=True
         )
         
         return CompressedContext(
-            key_insights=optimized_context.insights,
-            financial_data=optimized_context.financial_highlights,
-            strategic_implications=optimized_context.implications,
-            source_attribution=optimized_context.sources
+            concept_definitions=optimized_context.definitions,
+            key_explanations=optimized_context.explanations,
+            worked_examples=optimized_context.examples,
+            practice_problems=optimized_context.practice,
+            prerequisite_concepts=optimized_context.prerequisites,
+            source_attribution=optimized_context.sources,
+            learning_progression=optimized_context.sequence
         )
 ```
 
-### 🎨 **Business Response Generator**
+### **Educational Response Generator**
 
 ```python
-# Strategic Response Generation
-class BusinessResponseGenerator:
+# Pedagogical Response Generation
+class EducationalResponseGenerator:
     def __init__(self):
         self.llm_client = MultiLLMClient()
-        self.prompt_engine = BusinessPromptEngine()
-        self.citation_formatter = CitationFormatter()
-        self.fact_checker = BusinessFactChecker()
+        self.prompt_engine = EducationalPromptEngine()
+        self.citation_formatter = AcademicCitationFormatter()
+        self.fact_checker = EducationalFactChecker()
+        self.learning_enhancer = LearningResponseEnhancer()
     
-    async def generate_response(self, query: str, context: CompressedContext) -> BusinessResponse:
-        # Select appropriate LLM based on query type
-        llm_model = self.select_llm_for_query(query)
+    async def generate_response(self, query: str, context: CompressedContext, 
+                              learning_context: LearningAnalysis) -> EducationalResponse:
+        # Select appropriate LLM based on learning intent
+        llm_model = self.select_educational_llm(learning_context.intent)
         
-        # Create business-focused prompt
-        prompt = self.prompt_engine.create_strategic_prompt(
+        # Create pedagogically-focused prompt
+        prompt = self.prompt_engine.create_learning_prompt(
             query=query,
             context=context,
-            response_format="executive_summary"
+            learning_level=learning_context.difficulty_level,
+            response_format="educational_explanation"
         )
         
-        # Generate strategic response
+        # Generate educational response
         raw_response = await self.llm_client.generate(
             model=llm_model,
             prompt=prompt,
-            temperature=0.3,  # Lower for business accuracy
+            temperature=0.3,  # Lower for educational accuracy
             max_tokens=2000
         )
         
-        # Fact-check against source materials
+        # Fact-check against educational sources
         fact_checked_response = await self.fact_checker.verify(
             response=raw_response,
-            sources=context.sources
+            sources=context.sources,
+            academic_standards=True
         )
         
-        # Format with professional citations
-        formatted_response = self.citation_formatter.format(
+        # Enhance with learning elements
+        enhanced_response = self.learning_enhancer.enhance(
             response=fact_checked_response,
-            sources=context.source_attribution,
-            citation_style="business"
+            add_practice_questions=True,
+            add_related_concepts=True,
+            add_learning_objectives=True
         )
         
-        return BusinessResponse(
-            executive_summary=formatted_response.summary,
+        # Format with academic citations
+        formatted_response = self.citation_formatter.format(
+            response=enhanced_response,
+            sources=context.source_attribution,
+            citation_style="academic"
+        )
+        
+        return EducationalResponse(
+            concept_explanation=formatted_response.explanation,
             key_insights=formatted_response.insights,
-            recommendations=formatted_response.recommendations,
-            supporting_data=formatted_response.data,
+            worked_examples=formatted_response.examples,
+            practice_questions=formatted_response.practice,
+            related_concepts=formatted_response.related,
+            prerequisite_concepts=formatted_response.prerequisites,
             citations=formatted_response.citations,
-            confidence_score=formatted_response.confidence
+            confidence_score=formatted_response.confidence,
+            learning_path_suggestions=formatted_response.next_steps
         )
 ```
 
 ---
 
-## 📊 Business Intelligence Features
+## Educational Intelligence Features
 
-### 🎯 **Query Intent Classification**
+###  **Learning Intent Classification**
 
 ```python
-BUSINESS_QUERY_INTENTS = {
-    "competitive_analysis": [
-        "market share", "competitor analysis", "competitive landscape",
-        "peer comparison", "industry benchmarking"
+EDUCATIONAL_QUERY_INTENTS = {
+    "concept_explanation": [
+        "explain", "what is", "define", "how does", "describe"
     ],
-    "financial_analysis": [
-        "revenue trends", "profit margins", "financial performance",
-        "cost analysis", "budget planning", "ROI analysis"
+    "prerequisite_analysis": [
+        "what do I need to know", "prerequisites", "foundation", "before learning"
     ],
-    "market_opportunity": [
-        "market size", "growth opportunities", "new markets",
-        "customer segments", "expansion potential"
+    "problem_solving": [
+        "solve", "example", "step by step", "how to", "algorithm"
     ],
-    "risk_assessment": [
-        "business risks", "market threats", "regulatory risks",
-        "operational risks", "financial risks"
+    "comparative_learning": [
+        "compare", "difference", "contrast", "versus", "alternatives"
     ],
-    "strategic_planning": [
-        "strategic initiatives", "business strategy", "long-term planning",
-        "strategic goals", "business development"
+    "application_understanding": [
+        "applications", "use cases", "real world", "practical", "implementation"
+    ],
+    "mathematical_concept": [
+        "formula", "equation", "theorem", "proof", "derivation"
     ]
 }
 ```
 
-### 📈 **Business Entity Recognition**
+### **Educational Entity Recognition**
 
 ```python
-BUSINESS_ENTITIES = {
-    "companies": ["Apple Inc.", "Microsoft", "Amazon", "competitor names"],
-    "products": ["iPhone", "Azure", "AWS", "product lines"],
-    "markets": ["North America", "enterprise market", "consumer segment"],
-    "metrics": ["revenue", "EBITDA", "market share", "growth rate"],
-    "time_periods": ["Q4 2023", "FY 2024", "last quarter", "YoY"],
-    "financial_terms": ["acquisition", "merger", "investment", "valuation"]
+EDUCATIONAL_ENTITIES = {
+    "concepts": ["machine learning", "gradient descent", "neural networks"],
+    "algorithms": ["backpropagation", "K-means", "decision trees"],
+    "mathematical_objects": ["vectors", "matrices", "derivatives", "integrals"],
+    "academic_subjects": ["computer science", "mathematics", "physics"],
+    "difficulty_indicators": ["beginner", "intermediate", "advanced"],
+    "educational_formats": ["lecture", "textbook", "research paper", "tutorial"]
 }
 ```
 
-### 🏆 **Business Relevance Scoring**
+### **Pedagogical Relevance Scoring**
 
 ```python
-class BusinessRelevanceScorer:
-    def score(self, content: str, query_intent: str, entities: Dict) -> float:
+class PedagogicalRelevanceScorer:
+    def score(self, content: str, learning_objective: str, 
+              difficulty_level: str, concept_definitions: List[str],
+              examples: List[str]) -> float:
         scores = {
-            "entity_match": self.score_entity_presence(content, entities),
-            "financial_data": self.score_financial_content(content),
-            "strategic_value": self.score_strategic_importance(content),
-            "actionability": self.score_actionability(content),
-            "recency": self.score_temporal_relevance(content),
-            "authority": self.score_source_authority(content)
+            "concept_clarity": self.score_concept_clarity(content, concept_definitions),
+            "example_richness": self.score_example_quality(content, examples),
+            "prerequisite_alignment": self.score_prerequisite_coverage(content),
+            "difficulty_appropriateness": self.score_difficulty_match(content, difficulty_level),
+            "explanation_structure": self.score_explanation_quality(content),
+            "visual_aids": self.score_visual_learning_support(content)
         }
         
-        # Weight scores based on query intent
-        if query_intent == "financial_analysis":
-            weights = [0.2, 0.4, 0.15, 0.1, 0.1, 0.05]
-        elif query_intent == "competitive_analysis":
-            weights = [0.3, 0.2, 0.25, 0.15, 0.05, 0.05]
-        elif query_intent == "strategic_planning":
-            weights = [0.25, 0.15, 0.35, 0.2, 0.05, 0.0]
+        # Weight scores based on learning objective
+        if "explanation" in learning_objective.lower():
+            weights = [0.3, 0.2, 0.2, 0.15, 0.1, 0.05]
+        elif "example" in learning_objective.lower():
+            weights = [0.2, 0.35, 0.15, 0.15, 0.1, 0.05]
+        elif "prerequisite" in learning_objective.lower():
+            weights = [0.25, 0.15, 0.35, 0.15, 0.05, 0.05]
         else:
-            weights = [0.25, 0.2, 0.2, 0.15, 0.1, 0.1]
+            weights = [0.25, 0.2, 0.2, 0.15, 0.15, 0.05]
         
         return sum(score * weight for score, weight in zip(scores.values(), weights))
 ```
 
 ---
 
-## 🔬 Advanced RAG Optimizations
+## Advanced Educational RAG Optimizations
 
-### ⚡ **Performance Optimizations**
+### **Learning-Specific Optimizations**
 
-1. **Embedding Caching**: Cache embeddings for repeated business terms
-2. **Query Routing**: Route queries to specialized retrievers based on intent
-3. **Parallel Processing**: Process sub-queries in parallel for complex questions
-4. **Smart Chunking**: Business-aware chunking based on document structure
-5. **Incremental Updates**: Update only changed documents in vector store
+1. **Concept Embedding**: Fine-tuned embeddings on educational content
+2. **Prerequisite Routing**: Route queries through knowledge dependencies
+3. **Difficulty Adaptation**: Adaptive complexity based on learner level
+4. **Multi-Modal Learning**: Process diagrams, equations, and code
+5. **Progressive Disclosure**: Reveal information based on learning progression
 
-### 🎯 **Accuracy Improvements**
+###  **Pedagogical Accuracy Improvements**
 
-1. **Domain Fine-tuning**: Fine-tune embeddings on business documents
-2. **Entity-Aware Chunking**: Preserve business entity context in chunks
-3. **Multi-hop Reasoning**: Connect related business concepts across documents
-4. **Temporal Consistency**: Maintain time-aware context for trend analysis
-5. **Source Weighting**: Weight sources based on authority and recency
+1. **Educational Fine-tuning**: Fine-tune models on academic datasets
+2. **Concept-Aware Chunking**: Preserve educational concept boundaries
+3. **Learning Path Construction**: Connect concepts through prerequisites
+4. **Example Enrichment**: Prioritize content with worked examples
+5. **Practice Integration**: Include exercises and self-assessment
 
-### 📊 **Business-Specific Enhancements**
+### **Cross-Encoder Model Enhancements**
 
-1. **Financial Data Extraction**: Extract and structure financial metrics
-2. **Competitive Intelligence**: Track competitor mentions and analysis
-3. **Market Trend Analysis**: Identify and analyze market patterns
-4. **Risk Factor Identification**: Detect and categorize business risks
-5. **Strategic Opportunity Mapping**: Identify growth opportunities
+1. **Educational Domain Adaptation**: Fine-tune cross-encoders on educational Q&A pairs
+2. **Multi-Model Ensemble**: Combine general, academic, and domain-specific models
+3. **Difficulty-Aware Scoring**: Adjust relevance based on learner level
+4. **Concept Coherence**: Ensure logical flow between related concepts
+5. **Learning Objective Alignment**: Score based on specific learning goals
 
 ---
 
-## 🧪 Testing & Evaluation Strategy
+## Testing & Evaluation Strategy
 
-### 📈 **Business RAG Metrics**
+### **Educational RAG Metrics**
 
 ```python
-class BusinessRAGEvaluator:
-    def evaluate_retrieval_quality(self, queries: List[str], ground_truth: List[Dict]):
+class EducationalRAGEvaluator:
+    def evaluate_learning_effectiveness(self, queries: List[str], ground_truth: List[Dict]):
         metrics = {
-            "business_relevance": self.measure_business_relevance(),
-            "financial_accuracy": self.measure_financial_accuracy(),
-            "citation_precision": self.measure_citation_accuracy(),
-            "strategic_value": self.measure_strategic_value(),
-            "response_completeness": self.measure_completeness()
+            "concept_coverage": self.measure_concept_coverage(),
+            "prerequisite_accuracy": self.measure_prerequisite_alignment(),
+            "explanation_clarity": self.measure_explanation_quality(),
+            "example_relevance": self.measure_example_effectiveness(),
+            "citation_accuracy": self.measure_citation_precision(),
+            "learning_progression": self.measure_learning_flow()
         }
         return metrics
     
-    def measure_business_relevance(self) -> float:
-        # Measure how well results match business query intent
+    def measure_concept_coverage(self) -> float:
+        # Measure how well responses cover key concepts
         pass
     
-    def measure_financial_accuracy(self) -> float:
-        # Verify accuracy of financial data and metrics
+    def measure_prerequisite_alignment(self) -> float:
+        # Verify prerequisite concept coverage
         pass
     
-    def measure_strategic_value(self) -> float:
-        # Assess strategic importance of retrieved information
+    def measure_explanation_quality(self) -> float:
+        # Assess clarity and pedagogical value
         pass
 ```
 
-### 🎯 **Test Cases for Business Queries**
+###  **Test Cases for Educational Queries**
 
 ```python
-BUSINESS_TEST_QUERIES = [
+EDUCATIONAL_TEST_QUERIES = [
     {
-        "query": "What are the key competitive advantages mentioned in our latest quarterly report?",
-        "intent": "competitive_analysis",
-        "expected_entities": ["competitive advantages", "quarterly report"],
-        "expected_sources": ["Q4_2023_earnings.pdf"]
+        "query": "Explain gradient descent with examples from my machine learning textbook",
+        "intent": "concept_explanation",
+        "expected_concepts": ["gradient descent", "optimization", "machine learning"],
+        "expected_sources": ["ml_textbook_chapter4.pdf", "optimization_lecture.pdf"]
     },
     {
-        "query": "How has our market share changed compared to competitors over the past year?",
-        "intent": "competitive_analysis", 
-        "expected_entities": ["market share", "competitors", "past year"],
-        "expected_sources": ["market_analysis_2023.pdf", "competitor_report.pdf"]
+        "query": "What concepts do I need to understand before learning neural networks?",
+        "intent": "prerequisite_analysis",
+        "expected_concepts": ["linear algebra", "calculus", "probability"],
+        "expected_sources": ["math_foundations.pdf", "nn_prerequisites.pdf"]
     },
     {
-        "query": "What are the main financial risks identified in recent board presentations?",
-        "intent": "risk_assessment",
-        "expected_entities": ["financial risks", "board presentations"],
-        "expected_sources": ["board_presentation_Q3.pptx", "risk_assessment.pdf"]
+        "query": "Compare different clustering algorithms from my course materials",
+        "intent": "comparative_learning",
+        "expected_concepts": ["K-means", "hierarchical clustering", "DBSCAN"],
+        "expected_sources": ["clustering_lecture.pdf", "algorithms_textbook.pdf"]
     }
 ]
 ```
 
 ---
 
-## 🚀 Implementation Roadmap
+##  Implementation Roadmap
 
 ### Phase 1: Foundation (Week 1-2)
-- [ ] Setup business document processing pipeline
-- [ ] Implement basic hybrid retrieval (dense + sparse)
-- [ ] Create business entity recognition system
-- [ ] Build query intent classification
+- [ ] Setup educational document processing pipeline
+- [ ] Implement hybrid retrieval (dense + sparse + knowledge graph)
+- [ ] Create educational concept recognition system
+- [ ] Build learning intent classification
 
-### Phase 2: Advanced Retrieval (Week 3-4)
-- [ ] Implement cross-encoder reranking
-- [ ] Add business relevance scoring
-- [ ] Create context compression engine
-- [ ] Build citation tracking system
+### Phase 2: Cross-Encoder Integration (Week 3-4)
+- [ ] Implement multi-model cross-encoder reranking
+- [ ] Add pedagogical relevance scoring
+- [ ] Create educational context compression
+- [ ] Build academic citation tracking
 
-### Phase 3: Business Intelligence (Week 5-6)
-- [ ] Add financial data extraction
-- [ ] Implement competitive analysis features
-- [ ] Create strategic response generation
-- [ ] Build evaluation framework
+### Phase 3: Educational Intelligence (Week 5-6)
+- [ ] Add prerequisite mapping and dependency analysis
+- [ ] Implement learning progression optimization
+- [ ] Create adaptive difficulty matching
+- [ ] Build practice question generation
 
 ### Phase 4: Optimization (Week 7-8)
-- [ ] Fine-tune business embeddings
-- [ ] Optimize for speed and accuracy
-- [ ] Add advanced business features
-- [ ] Comprehensive testing and validation
+- [ ] Fine-tune educational embeddings and cross-encoders
+- [ ] Optimize for learning effectiveness
+- [ ] Add advanced pedagogical features
+- [ ] Comprehensive educational evaluation
 
 ---
 
-## 🎯 Success Metrics
+##  Success Metrics
 
-### 📊 **Quantitative Targets**
-- **Retrieval Accuracy**: >85% for business queries
-- **Response Time**: <3 seconds for complex questions
-- **Citation Accuracy**: >95% traceable sources
-- **Business Relevance**: >80% strategic value score
+### **Quantitative Targets**
+- **Retrieval Accuracy**: >90% for educational queries
+- **Response Time**: <3 seconds for complex learning questions
+- **Citation Accuracy**: >95% traceable academic sources
+- **Pedagogical Relevance**: >85% learning effectiveness score
 
-### 🎯 **Qualitative Goals**
-- Generate actionable business insights
-- Provide strategic recommendations with confidence
-- Maintain professional business language
-- Enable data-driven decision making
+###  **Qualitative Goals**
+- Generate clear, structured explanations
+- Provide comprehensive prerequisite mapping
+- Maintain academic rigor and accuracy
+- Enable personalized learning experiences
 
 ---
 
-**Focus**: Build a world-class RAG system that transforms business documents into strategic competitive advantages! 🚀
+**Focus**: Build a world-class educational RAG system that transforms study materials into an intelligent, adaptive learning companion!
 description:
 globs:
 alwaysApply: false

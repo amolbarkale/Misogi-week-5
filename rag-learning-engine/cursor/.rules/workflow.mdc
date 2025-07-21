@@ -2,13 +2,13 @@
 alwaysApply: true
 ---
 
-# 📝 Assignment — **AI Learning Engine**  
+# Assignment — **AI Learning Engine**  
 *Turn your notes, slides, flow‑charts, and textbooks into an always‑on AI tutor.*
 ---
-## 🎯 Objective  
+## Objective  
 Create a **personal AI learning platform** that digests **all** of your AI‑related study materials—PDF notes, markdown cheat‑sheets, hand‑drawn architecture diagrams, lecture slide decks, flow‑charts, research papers—and turns them into an interactive, citation‑rich tutor that helps you explore every concept with "infinite potential."
 ---
-## ✅ Core Requirements  
+## Core Requirements  
 1. **Document Upload & Processing**  
    - Ingest lecture notes, slide decks, textbooks, research papers, and diagrams via file upload or URL.  
 2. **Query Decomposition**  
@@ -22,7 +22,7 @@ Create a **personal AI learning platform** that digests **all** of your AI‑rel
 6. **Citation‑based Responses**  
    - Provide source tracking for all explanations and references.  
 ---
-## 🛠️ Technical Requirements  
+## Technical Requirements  
 | Layer | Tech Stack / Tools |
 | ----- | ------------------ |
 | **Backend** | FastAPI with SQLite database |
@@ -32,12 +32,12 @@ Create a **personal AI learning platform** that digests **all** of your AI‑rel
 | **LLMs** | Multiple models optimized for distinct educational analysis tasks |
 | **Charts & Tables** | Streamlit native components for tables and visualizations |
 ---
-## 📚 Use‑Cases (Education‑Centric)
+## Use‑Cases (Education‑Centric)
 1. **"Upload my machine learning textbook and ask: 'Explain gradient descent with examples from my materials.'"**
 2. **"Provide a URL to a research paper and ask: 'What are the key concepts I need to understand before reading this paper?'"**
 3. **"Compare different optimization algorithms based on my uploaded lecture notes and research papers."**
 ---
-## 🔖 Deliverables
+## Deliverables
 - **Source‑code repository** with clear setup instructions  
 - **Streamlit demo app** showcasing end‑to‑end RAG workflow  
 - **Technical report** summarizing architecture, design choices, and RAG implementation  
@@ -46,9 +46,9 @@ Create a **personal AI learning platform** that digests **all** of your AI‑rel
 
 ---
 
-# 📈 AI Learning Engine — Enhanced Strategic Workflow  
+# AI Learning Engine — Enhanced Strategic Workflow  
 
-## 🎯 Strategic Architecture Overview
+## Strategic Architecture Overview
 
 ### Core Design Principles
 - **Microservice Architecture**: Decouple document processing, retrieval, and generation services
@@ -66,7 +66,7 @@ Analysis    Generation     Fusion              Scoring         Citations
 
 ---
 
-## 🛠 Phase 0: Preparation & Project Setup  
+## Phase 0: Preparation & Project Setup  
 **Goal:** Establish your environment and repo scaffold before writing any feature code.
 
 ### Enhanced Setup
@@ -108,7 +108,7 @@ Analysis    Generation     Fusion              Scoring         Citations
 
 ---
 
-## 🔧 Phase 1: Document Ingestion Service  
+## Phase 1: Document Ingestion Service  
 **Goal:** Build a simple, effective document processing pipeline with multi-modal support.
 
 ### Core Features
@@ -222,7 +222,7 @@ async def upload_document(file: UploadFile = File(...)):
 
 ---
 
-## 🎨 Phase 2: Simple Streamlit Interface  
+## Phase 2: Simple Streamlit Interface  
 **Goal:** Create a clean, intuitive Streamlit UI for document upload and question asking.
 
 ### Core UI Components
@@ -261,7 +261,7 @@ frontend/
 
 ---
 
-## 🔗 Phase 3: Simple Upload Integration  
+## Phase 3: Simple Upload Integration  
 **Goal:** Implement straightforward document upload and basic validation.
 
 ### Core Upload Features
@@ -289,7 +289,7 @@ frontend/
 
 ---
 
-## 📚 Phase 4: Advanced Text Extraction & Multi-Modal Processing  
+## Phase 4: Advanced Text Extraction & Multi-Modal Processing  
 **Goal:** Extract maximum value from diverse document types with state-of-the-art techniques.
 
 ### Multi-Modal Extraction Strategy
@@ -336,7 +336,7 @@ frontend/
 
 ---
 
-## 🔍 Phase 5: Multi-Route Retrieval System  
+## Phase 5: Multi-Route Retrieval System  
 **Goal:** Implement sophisticated retrieval that adapts to different query types and learning contexts.
 
 ### Query Analysis & Routing
@@ -374,7 +374,7 @@ Input       Definitional        Exploratory        Retrieval
 
 ---
 
-## ⚖️ Phase 6: Hybrid Retrieval with Query Enhancement  
+## Phase 6: Hybrid Retrieval with Query Enhancement  
 **Goal:** Implement state-of-the-art hybrid retrieval with query optimization techniques.
 
 ### Query Enhancement Pipeline
@@ -410,7 +410,7 @@ Original Query → Query Decomposition → Query Expansion → Multi-Vector Sear
 
 ---
 
-## 🔢 Phase 7: Multi-Stage Reranking & Intelligent Compression  
+## Phase 7: Multi-Stage Reranking & Intelligent Compression  
 **Goal:** Implement sophisticated reranking with pedagogical relevance scoring and adaptive compression.
 
 ### Multi-Stage Reranking Pipeline
@@ -457,7 +457,7 @@ Retrieved Results → Pedagogical Scoring → Cross-Encoder Reranking → Contex
 
 ---
 
-## 💬 Phase 8: Answer Generation with Educational Focus  
+## Phase 8: Answer Generation with Educational Focus  
 **Goal:** Generate pedagogically optimized responses with comprehensive citations.
 
 ### Multi-LLM Generation Strategy
@@ -511,7 +511,7 @@ Context + Query → LLM Routing → Specialized Generation → Response Enhancem
 
 ---
 
-## 🔗 Phase 9: Streamlit UI Integration  
+## Phase 9: Streamlit UI Integration  
 **Goal:** Create a seamless Streamlit interface for document upload and question answering.
 
 ### Core Streamlit Features
@@ -543,7 +543,7 @@ Context + Query → LLM Routing → Specialized Generation → Response Enhancem
 
 ---
 
-## 🎯 Advanced RAG Enhancements Summary
+## Advanced RAG Enhancements Summary
 
 ### Query Enhancement Techniques
 1. **Query Decomposition**: Break complex educational queries into atomic components
@@ -565,7 +565,7 @@ Context + Query → LLM Routing → Specialized Generation → Response Enhancem
 
 ---
 
-## 🏗️ Architecture Decision Records
+## Architecture Decision Records
 
 ### ADR-1: Microservice vs. Monolithic Architecture
 **Decision**: Adopt microservice architecture for scalability and maintainability
@@ -585,7 +585,7 @@ Context + Query → LLM Routing → Specialized Generation → Response Enhancem
 
 ---
 
-## 🔄 Continuous Improvement Strategy
+## Continuous Improvement Strategy
 
 ### Feedback Loops
 1. **User Interaction Analysis**: Track query patterns and satisfaction
