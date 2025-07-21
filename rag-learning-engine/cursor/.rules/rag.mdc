@@ -1,4 +1,577 @@
 ---
+alwaysApply: true
+---
+# 🔍 Advanced RAG Search Pipeline - Business Intelligence Engine
+
+## 🎯 Mission: Build a Robust RAG System for Strategic Business Analysis
+
+Transform complex business documents into actionable strategic insights through advanced retrieval, reranking, and generation techniques.
+
+---
+
+## 📋 RAG Pipeline Requirements
+
+### 🎯 **Business Intelligence Focus**
+- **Document Types**: Company reports, financial data, market research, strategic documents
+- **Query Types**: Strategic questions, competitive analysis, market insights, financial trends
+- **Output**: Actionable business recommendations with precise source attribution
+
+### ⚡ **Performance Targets**
+- **Retrieval Accuracy**: >85% relevance for business queries
+- **Response Time**: <3 seconds for complex strategic questions
+- **Citation Precision**: 100% traceable sources with confidence scores
+- **Context Coverage**: Handle 10K+ page documents efficiently
+
+---
+
+## 🏗️ RAG Architecture Overview
+
+```
+Business Query → Query Decomposition → Hybrid Retrieval → Multi-Stage Reranking → Business LLM → Strategic Response
+       ↓                ↓                    ↓                    ↓                ↓               ↓
+   Intent Analysis  Sub-queries +     Dense + Sparse +     Cross-encoder +    Context +      Citations +
+   Strategic Type   Dependencies      Graph Search         Business Score     Compression     Recommendations
+```
+
+---
+
+## 🔄 RAG Pipeline Stages
+
+### 1️⃣ **Document Processing & Ingestion**
+```
+Business Documents → Multi-Modal Extraction → Semantic Chunking → Metadata Enrichment → Vector Storage
+```
+
+**Key Components:**
+- **Document Types**: PDF reports, Excel sheets, PowerPoint decks, web articles
+- **Content Extraction**: Tables, charts, financial data, text, images
+- **Business Context**: Company names, financial metrics, market segments, dates
+- **Chunk Strategy**: Business-aware chunking (sections, topics, time periods)
+
+### 2️⃣ **Query Analysis & Decomposition**
+```
+Strategic Question → Intent Classification → Query Decomposition → Sub-query Generation → Routing Strategy
+```
+
+**Query Types:**
+- **Competitive Analysis**: "How does our market share compare to competitors?"
+- **Financial Trends**: "What are the revenue growth patterns in Q4?"
+- **Strategic Planning**: "What market opportunities should we pursue?"
+- **Risk Assessment**: "What are the key business risks mentioned in reports?"
+
+### 3️⃣ **Hybrid Retrieval System**
+```
+Query Embedding → Dense Search → Sparse Search → Graph Traversal → Result Fusion → Top-K Candidates
+```
+
+**Multi-Vector Approach:**
+- **Dense Retrieval**: Semantic similarity using business-tuned embeddings
+- **Sparse Retrieval**: Keyword-based search with business term weighting
+- **Graph Retrieval**: Entity relationships (companies, markets, products)
+- **Temporal Retrieval**: Time-aware search for trend analysis
+
+### 4️⃣ **Advanced Reranking Pipeline**
+```
+Retrieved Results → Business Relevance Scoring → Cross-Encoder Reranking → Context Compression → Final Ranking
+```
+
+**Multi-Model Ensemble:**
+- **Business Relevance**: Strategic importance, financial impact, actionability
+- **Cross-Encoder**: Query-document semantic matching
+- **Temporal Relevance**: Recency and trend significance
+- **Source Authority**: Document credibility and reliability
+
+### 5️⃣ **Context Optimization & Compression**
+```
+Top Results → Redundancy Removal → Key Insight Extraction → Context Assembly → Token Optimization
+```
+
+**Smart Compression:**
+- **Business Priority**: Financial data > strategic insights > background info
+- **Diversity**: Multiple perspectives and data sources
+- **Coherence**: Logical flow for strategic decision-making
+
+### 6️⃣ **Business-Aware Generation**
+```
+Optimized Context → Strategic Prompting → Multi-LLM Generation → Business Formatting → Citation Integration
+```
+
+**Generation Strategy:**
+- **Strategic Framing**: Executive summary, key insights, recommendations
+- **Business Language**: Professional tone, industry terminology
+- **Actionable Outputs**: Clear next steps and decision points
+
+---
+
+## 🛠️ Technical Implementation
+
+### 📊 **Document Processing Pipeline**
+
+```python
+# Business Document Processor
+class BusinessDocumentProcessor:
+    def __init__(self):
+        self.pdf_extractor = AdvancedPDFExtractor()
+        self.table_extractor = TableExtractor()
+        self.financial_parser = FinancialDataParser()
+        self.entity_extractor = BusinessEntityExtractor()
+    
+    async def process_document(self, file_path: str) -> ProcessedDocument:
+        # Extract content with business context
+        content = await self.extract_business_content(file_path)
+        
+        # Parse financial data and metrics
+        financial_data = self.financial_parser.extract_metrics(content)
+        
+        # Extract business entities (companies, products, markets)
+        entities = self.entity_extractor.extract_entities(content)
+        
+        # Create business-aware chunks
+        chunks = self.create_strategic_chunks(content, entities, financial_data)
+        
+        return ProcessedDocument(content, chunks, entities, financial_data)
+```
+
+### 🔍 **Query Decomposition Engine**
+
+```python
+# Strategic Query Analyzer
+class StrategyQueryAnalyzer:
+    def __init__(self):
+        self.intent_classifier = BusinessIntentClassifier()
+        self.entity_extractor = QueryEntityExtractor()
+        self.decomposer = QueryDecomposer()
+    
+    async def analyze_query(self, query: str) -> QueryAnalysis:
+        # Classify business intent
+        intent = self.intent_classifier.classify(query)
+        # competitive_analysis, financial_trend, market_opportunity, risk_assessment
+        
+        # Extract business entities from query
+        entities = self.entity_extractor.extract(query)
+        # companies, products, markets, time_periods, metrics
+        
+        # Decompose complex strategic questions
+        sub_queries = self.decomposer.decompose(query, intent, entities)
+        
+        return QueryAnalysis(
+            original_query=query,
+            intent=intent,
+            entities=entities,
+            sub_queries=sub_queries,
+            routing_strategy=self.determine_routing(intent)
+        )
+```
+
+### ⚡ **Hybrid Retrieval Engine**
+
+```python
+# Advanced Business Retrieval System
+class HybridBusinessRetriever:
+    def __init__(self):
+        self.dense_retriever = BusinessDenseRetriever()
+        self.sparse_retriever = BusinessSparseRetriever()
+        self.graph_retriever = EntityGraphRetriever()
+        self.temporal_retriever = TemporalRetriever()
+        self.fusion_engine = ReciprocalRankFusion()
+    
+    async def retrieve(self, query_analysis: QueryAnalysis, top_k: int = 100) -> List[SearchResult]:
+        # Multi-vector dense retrieval
+        dense_results = await self.dense_retriever.search(
+            query_analysis.embedding,
+            filters={
+                "entities": query_analysis.entities,
+                "intent": query_analysis.intent
+            }
+        )
+        
+        # Business-aware sparse retrieval
+        sparse_results = await self.sparse_retriever.search(
+            query_analysis.keywords,
+            business_terms=query_analysis.business_terms,
+            boost_financial=True
+        )
+        
+        # Entity relationship traversal
+        graph_results = await self.graph_retriever.traverse(
+            query_analysis.entities,
+            relationship_types=["competitor", "market", "supplier"]
+        )
+        
+        # Temporal pattern matching
+        temporal_results = await self.temporal_retriever.search(
+            query_analysis.time_context,
+            trend_analysis=True
+        )
+        
+        # Fuse results with business-weighted scoring
+        final_results = self.fusion_engine.fuse(
+            [dense_results, sparse_results, graph_results, temporal_results],
+            weights=[0.4, 0.3, 0.2, 0.1]  # Adjust based on query intent
+        )
+        
+        return final_results[:top_k]
+```
+
+### 🎯 **Multi-Stage Reranking System**
+
+```python
+# Business-Aware Reranking Pipeline
+class BusinessReranker:
+    def __init__(self):
+        self.cross_encoder = BusinessCrossEncoder()
+        self.relevance_scorer = BusinessRelevanceScorer()
+        self.credibility_scorer = SourceCredibilityScorer()
+        self.impact_scorer = BusinessImpactScorer()
+    
+    async def rerank(self, query: str, results: List[SearchResult]) -> List[RankedResult]:
+        reranked_results = []
+        
+        for result in results:
+            # Cross-encoder semantic scoring
+            semantic_score = self.cross_encoder.score(query, result.content)
+            
+            # Business relevance scoring
+            relevance_score = self.relevance_scorer.score(
+                content=result.content,
+                query_intent=result.query_intent,
+                business_entities=result.entities
+            )
+            
+            # Source credibility scoring
+            credibility_score = self.credibility_scorer.score(
+                document_type=result.doc_type,
+                source_authority=result.source_authority,
+                publication_date=result.date
+            )
+            
+            # Business impact scoring
+            impact_score = self.impact_scorer.score(
+                financial_implications=result.financial_data,
+                strategic_importance=result.strategic_value,
+                actionability=result.actionability
+            )
+            
+            # Weighted final score
+            final_score = (
+                semantic_score * 0.3 +
+                relevance_score * 0.35 +
+                credibility_score * 0.2 +
+                impact_score * 0.15
+            )
+            
+            reranked_results.append(RankedResult(
+                content=result.content,
+                score=final_score,
+                scores_breakdown={
+                    "semantic": semantic_score,
+                    "relevance": relevance_score,
+                    "credibility": credibility_score,
+                    "impact": impact_score
+                }
+            ))
+        
+        return sorted(reranked_results, key=lambda x: x.score, reverse=True)
+```
+
+### 🗜️ **Context Compression Engine**
+
+```python
+# Strategic Context Optimizer
+class BusinessContextCompressor:
+    def __init__(self):
+        self.importance_scorer = BusinessImportanceScorer()
+        self.redundancy_detector = RedundancyDetector()
+        self.coherence_optimizer = CoherenceOptimizer()
+    
+    async def compress_context(self, ranked_results: List[RankedResult], 
+                             max_tokens: int = 8000) -> CompressedContext:
+        
+        # Score content importance for business decisions
+        importance_scores = [
+            self.importance_scorer.score(
+                content=result.content,
+                financial_data=result.financial_data,
+                strategic_value=result.strategic_value
+            ) for result in ranked_results
+        ]
+        
+        # Remove redundant information
+        unique_insights = self.redundancy_detector.remove_duplicates(
+            ranked_results, 
+            similarity_threshold=0.85
+        )
+        
+        # Optimize for coherent business narrative
+        optimized_context = self.coherence_optimizer.optimize(
+            unique_insights,
+            max_tokens=max_tokens,
+            narrative_structure="executive_summary"
+        )
+        
+        return CompressedContext(
+            key_insights=optimized_context.insights,
+            financial_data=optimized_context.financial_highlights,
+            strategic_implications=optimized_context.implications,
+            source_attribution=optimized_context.sources
+        )
+```
+
+### 🎨 **Business Response Generator**
+
+```python
+# Strategic Response Generation
+class BusinessResponseGenerator:
+    def __init__(self):
+        self.llm_client = MultiLLMClient()
+        self.prompt_engine = BusinessPromptEngine()
+        self.citation_formatter = CitationFormatter()
+        self.fact_checker = BusinessFactChecker()
+    
+    async def generate_response(self, query: str, context: CompressedContext) -> BusinessResponse:
+        # Select appropriate LLM based on query type
+        llm_model = self.select_llm_for_query(query)
+        
+        # Create business-focused prompt
+        prompt = self.prompt_engine.create_strategic_prompt(
+            query=query,
+            context=context,
+            response_format="executive_summary"
+        )
+        
+        # Generate strategic response
+        raw_response = await self.llm_client.generate(
+            model=llm_model,
+            prompt=prompt,
+            temperature=0.3,  # Lower for business accuracy
+            max_tokens=2000
+        )
+        
+        # Fact-check against source materials
+        fact_checked_response = await self.fact_checker.verify(
+            response=raw_response,
+            sources=context.sources
+        )
+        
+        # Format with professional citations
+        formatted_response = self.citation_formatter.format(
+            response=fact_checked_response,
+            sources=context.source_attribution,
+            citation_style="business"
+        )
+        
+        return BusinessResponse(
+            executive_summary=formatted_response.summary,
+            key_insights=formatted_response.insights,
+            recommendations=formatted_response.recommendations,
+            supporting_data=formatted_response.data,
+            citations=formatted_response.citations,
+            confidence_score=formatted_response.confidence
+        )
+```
+
+---
+
+## 📊 Business Intelligence Features
+
+### 🎯 **Query Intent Classification**
+
+```python
+BUSINESS_QUERY_INTENTS = {
+    "competitive_analysis": [
+        "market share", "competitor analysis", "competitive landscape",
+        "peer comparison", "industry benchmarking"
+    ],
+    "financial_analysis": [
+        "revenue trends", "profit margins", "financial performance",
+        "cost analysis", "budget planning", "ROI analysis"
+    ],
+    "market_opportunity": [
+        "market size", "growth opportunities", "new markets",
+        "customer segments", "expansion potential"
+    ],
+    "risk_assessment": [
+        "business risks", "market threats", "regulatory risks",
+        "operational risks", "financial risks"
+    ],
+    "strategic_planning": [
+        "strategic initiatives", "business strategy", "long-term planning",
+        "strategic goals", "business development"
+    ]
+}
+```
+
+### 📈 **Business Entity Recognition**
+
+```python
+BUSINESS_ENTITIES = {
+    "companies": ["Apple Inc.", "Microsoft", "Amazon", "competitor names"],
+    "products": ["iPhone", "Azure", "AWS", "product lines"],
+    "markets": ["North America", "enterprise market", "consumer segment"],
+    "metrics": ["revenue", "EBITDA", "market share", "growth rate"],
+    "time_periods": ["Q4 2023", "FY 2024", "last quarter", "YoY"],
+    "financial_terms": ["acquisition", "merger", "investment", "valuation"]
+}
+```
+
+### 🏆 **Business Relevance Scoring**
+
+```python
+class BusinessRelevanceScorer:
+    def score(self, content: str, query_intent: str, entities: Dict) -> float:
+        scores = {
+            "entity_match": self.score_entity_presence(content, entities),
+            "financial_data": self.score_financial_content(content),
+            "strategic_value": self.score_strategic_importance(content),
+            "actionability": self.score_actionability(content),
+            "recency": self.score_temporal_relevance(content),
+            "authority": self.score_source_authority(content)
+        }
+        
+        # Weight scores based on query intent
+        if query_intent == "financial_analysis":
+            weights = [0.2, 0.4, 0.15, 0.1, 0.1, 0.05]
+        elif query_intent == "competitive_analysis":
+            weights = [0.3, 0.2, 0.25, 0.15, 0.05, 0.05]
+        elif query_intent == "strategic_planning":
+            weights = [0.25, 0.15, 0.35, 0.2, 0.05, 0.0]
+        else:
+            weights = [0.25, 0.2, 0.2, 0.15, 0.1, 0.1]
+        
+        return sum(score * weight for score, weight in zip(scores.values(), weights))
+```
+
+---
+
+## 🔬 Advanced RAG Optimizations
+
+### ⚡ **Performance Optimizations**
+
+1. **Embedding Caching**: Cache embeddings for repeated business terms
+2. **Query Routing**: Route queries to specialized retrievers based on intent
+3. **Parallel Processing**: Process sub-queries in parallel for complex questions
+4. **Smart Chunking**: Business-aware chunking based on document structure
+5. **Incremental Updates**: Update only changed documents in vector store
+
+### 🎯 **Accuracy Improvements**
+
+1. **Domain Fine-tuning**: Fine-tune embeddings on business documents
+2. **Entity-Aware Chunking**: Preserve business entity context in chunks
+3. **Multi-hop Reasoning**: Connect related business concepts across documents
+4. **Temporal Consistency**: Maintain time-aware context for trend analysis
+5. **Source Weighting**: Weight sources based on authority and recency
+
+### 📊 **Business-Specific Enhancements**
+
+1. **Financial Data Extraction**: Extract and structure financial metrics
+2. **Competitive Intelligence**: Track competitor mentions and analysis
+3. **Market Trend Analysis**: Identify and analyze market patterns
+4. **Risk Factor Identification**: Detect and categorize business risks
+5. **Strategic Opportunity Mapping**: Identify growth opportunities
+
+---
+
+## 🧪 Testing & Evaluation Strategy
+
+### 📈 **Business RAG Metrics**
+
+```python
+class BusinessRAGEvaluator:
+    def evaluate_retrieval_quality(self, queries: List[str], ground_truth: List[Dict]):
+        metrics = {
+            "business_relevance": self.measure_business_relevance(),
+            "financial_accuracy": self.measure_financial_accuracy(),
+            "citation_precision": self.measure_citation_accuracy(),
+            "strategic_value": self.measure_strategic_value(),
+            "response_completeness": self.measure_completeness()
+        }
+        return metrics
+    
+    def measure_business_relevance(self) -> float:
+        # Measure how well results match business query intent
+        pass
+    
+    def measure_financial_accuracy(self) -> float:
+        # Verify accuracy of financial data and metrics
+        pass
+    
+    def measure_strategic_value(self) -> float:
+        # Assess strategic importance of retrieved information
+        pass
+```
+
+### 🎯 **Test Cases for Business Queries**
+
+```python
+BUSINESS_TEST_QUERIES = [
+    {
+        "query": "What are the key competitive advantages mentioned in our latest quarterly report?",
+        "intent": "competitive_analysis",
+        "expected_entities": ["competitive advantages", "quarterly report"],
+        "expected_sources": ["Q4_2023_earnings.pdf"]
+    },
+    {
+        "query": "How has our market share changed compared to competitors over the past year?",
+        "intent": "competitive_analysis", 
+        "expected_entities": ["market share", "competitors", "past year"],
+        "expected_sources": ["market_analysis_2023.pdf", "competitor_report.pdf"]
+    },
+    {
+        "query": "What are the main financial risks identified in recent board presentations?",
+        "intent": "risk_assessment",
+        "expected_entities": ["financial risks", "board presentations"],
+        "expected_sources": ["board_presentation_Q3.pptx", "risk_assessment.pdf"]
+    }
+]
+```
+
+---
+
+## 🚀 Implementation Roadmap
+
+### Phase 1: Foundation (Week 1-2)
+- [ ] Setup business document processing pipeline
+- [ ] Implement basic hybrid retrieval (dense + sparse)
+- [ ] Create business entity recognition system
+- [ ] Build query intent classification
+
+### Phase 2: Advanced Retrieval (Week 3-4)
+- [ ] Implement cross-encoder reranking
+- [ ] Add business relevance scoring
+- [ ] Create context compression engine
+- [ ] Build citation tracking system
+
+### Phase 3: Business Intelligence (Week 5-6)
+- [ ] Add financial data extraction
+- [ ] Implement competitive analysis features
+- [ ] Create strategic response generation
+- [ ] Build evaluation framework
+
+### Phase 4: Optimization (Week 7-8)
+- [ ] Fine-tune business embeddings
+- [ ] Optimize for speed and accuracy
+- [ ] Add advanced business features
+- [ ] Comprehensive testing and validation
+
+---
+
+## 🎯 Success Metrics
+
+### 📊 **Quantitative Targets**
+- **Retrieval Accuracy**: >85% for business queries
+- **Response Time**: <3 seconds for complex questions
+- **Citation Accuracy**: >95% traceable sources
+- **Business Relevance**: >80% strategic value score
+
+### 🎯 **Qualitative Goals**
+- Generate actionable business insights
+- Provide strategic recommendations with confidence
+- Maintain professional business language
+- Enable data-driven decision making
+
+---
+
+**Focus**: Build a world-class RAG system that transforms business documents into strategic competitive advantages! 🚀
 description:
 globs:
 alwaysApply: false

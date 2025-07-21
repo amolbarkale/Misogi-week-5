@@ -1,4 +1,348 @@
 ---
+alwaysApply: true
+---
+
+# 🔧 Backend Development Flow - RAG Learning Engine
+
+## 🎯 Core Focus
+Simple backend for uploading documents/URLs, managing document library, and processing through RAG pipeline.
+
+---
+
+## 📋 Backend Requirements
+
+### ✅ What We Need
+- **Upload**: Single document or URL at a time
+- **Library**: Always show user's documents on frontend
+- **No Sessions**: Stateless - no user management needed
+- **RAG Processing**: Extract → Chunk → Embed → Store
+
+### ❌ What We Don't Need
+- User authentication/sessions
+- Complex file management
+- Batch operations
+- Advanced security
+
+---
+
+## 🏗️ Backend Architecture
+
+```
+Frontend (Streamlit) ←→ FastAPI Backend ←→ RAG Pipeline
+                              ↓
+                        SQLite Database
+                              ↓
+                        Qdrant Vector DB
+```
+
+---
+
+## 📊 Database Schema (SQLite)
+
+```sql
+-- Documents table
+CREATE TABLE documents (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    filename TEXT NOT NULL,
+    original_name TEXT,
+    file_path TEXT,
+    source_url TEXT,
+    file_type TEXT,
+    file_size INTEGER,
+    upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    processing_status TEXT DEFAULT 'pending',  -- pending, processing, completed, failed
+    extracted_text TEXT
+);
+
+-- Chunks table for RAG
+CREATE TABLE chunks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    document_id INTEGER,
+    chunk_text TEXT NOT NULL,
+    chunk_index INTEGER,
+    chunk_type TEXT,  -- text, table, image
+    embedding_id TEXT,  -- Reference to Qdrant vector
+    FOREIGN KEY (document_id) REFERENCES documents(id)
+);
+```
+
+---
+
+## 🛣️ API Endpoints
+
+### 1. Upload Document
+```http
+POST /upload
+Content-Type: multipart/form-data
+
+Body: file (PDF, TXT, MD)
+Response: {
+    "document_id": 123,
+    "filename": "lecture_notes.pdf", 
+    "status": "uploaded",
+    "processing_status": "pending"
+}
+```
+
+### 2. Upload URL
+```http
+POST /upload-url
+Content-Type: application/json
+
+Body: {
+    "url": "https://arxiv.org/pdf/1234.5678.pdf"
+}
+Response: {
+    "document_id": 124,
+    "filename": "downloaded_paper.pdf",
+    "status": "downloaded", 
+    "processing_status": "pending"
+}
+```
+
+### 3. Get Document Library
+```http
+GET /documents
+Response: {
+    "documents": [
+        {
+            "id": 123,
+            "filename": "lecture_notes.pdf",
+            "file_type": "pdf",
+            "upload_date": "2024-01-15T10:30:00",
+            "processing_status": "completed",
+            "chunk_count": 45
+        }
+    ]
+}
+```
+
+### 4. Delete Document
+```http
+DELETE /documents/{id}
+Response: {
+    "message": "Document deleted successfully"
+}
+```
+
+### 5. Query RAG
+```http
+POST /query
+Content-Type: application/json
+
+Body: {
+    "question": "What is machine learning?"
+}
+Response: {
+    "answer": "Machine learning is...",
+    "sources": [
+        {
+            "document_id": 123,
+            "chunk_id": 456,
+            "filename": "lecture_notes.pdf",
+            "chunk_text": "ML definition...",
+            "relevance_score": 0.95
+        }
+    ]
+}
+```
+
+---
+
+## 🔄 Backend Processing Flow
+
+### 1. Upload Flow
+```
+User Upload → Save File → Store Metadata → Trigger RAG Processing
+```
+
+**Steps:**
+1. Receive file/URL from frontend
+2. Save file to `/data/uploads/`
+3. Insert record in `documents` table
+4. Start background RAG processing
+5. Return document_id to frontend
+
+### 2. RAG Processing Pipeline
+```
+Document → Extract Text → Chunk → Generate Embeddings → Store in Vector DB
+```
+
+**Steps:**
+1. Extract text from PDF/document
+2. Clean and process text
+3. Split into semantic chunks
+4. Generate embeddings using sentence-transformers
+5. Store chunks in SQLite + embeddings in Qdrant
+6. Update `processing_status` to 'completed'
+
+### 3. Query Flow
+```
+Question → Retrieve Chunks → Rerank → Generate Response → Format with Citations
+```
+
+**Steps:**
+1. Receive question from frontend
+2. Generate query embedding
+3. Search similar chunks in Qdrant
+4. Rerank results using cross-encoder
+5. Generate answer using LLM with context
+6. Format response with source citations
+7. Return to frontend
+
+---
+
+## 📁 Backend File Structure
+
+```
+src/backend/
+├── main.py              # FastAPI app entry point
+├── models.py            # SQLite models & Pydantic schemas
+├── routes.py            # API endpoint handlers
+├── config.py            # Configuration settings
+└── services/
+    ├── upload_service.py    # Handle file/URL uploads
+    ├── rag_service.py       # RAG pipeline orchestration
+    └── document_service.py  # Document CRUD operations
+```
+
+---
+
+## 🔧 Key Components
+
+### 1. FastAPI App (`main.py`)
+```python
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from routes import router
+
+app = FastAPI(title="AI Learning Engine API")
+
+# Enable CORS for Streamlit
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(router)
+```
+
+### 2. Database Models (`models.py`)
+```python
+from sqlalchemy import Column, Integer, String, Text, DateTime
+from pydantic import BaseModel
+
+# SQLAlchemy ORM Models
+class Document(Base):
+    __tablename__ = "documents"
+    id = Column(Integer, primary_key=True)
+    filename = Column(String, nullable=False)
+    # ... other fields
+
+# Pydantic Schemas
+class DocumentResponse(BaseModel):
+    id: int
+    filename: str
+    processing_status: str
+    upload_date: datetime
+```
+
+### 3. Upload Service (`upload_service.py`)
+```python
+async def upload_file(file: UploadFile):
+    # Save file to disk
+    # Insert metadata to database
+    # Trigger RAG processing
+    # Return document info
+
+async def upload_url(url: str):
+    # Download file from URL
+    # Save to disk
+    # Insert metadata to database
+    # Trigger RAG processing
+    # Return document info
+```
+
+### 4. RAG Service (`rag_service.py`)
+```python
+async def process_document(document_id: int):
+    # Extract text from document
+    # Create chunks
+    # Generate embeddings
+    # Store in vector database
+    # Update processing status
+
+async def query_rag(question: str):
+    # Retrieve relevant chunks
+    # Rerank results
+    # Generate answer with LLM
+    # Format with citations
+    # Return response
+```
+
+---
+
+## 🎯 Development Priorities
+
+### Phase 1: Basic API (Week 1)
+- [ ] Setup FastAPI app with CORS
+- [ ] Create SQLite database and models
+- [ ] Implement file upload endpoint
+- [ ] Implement document library endpoint
+- [ ] Test with Streamlit frontend
+
+### Phase 2: RAG Pipeline (Week 2)
+- [ ] Add text extraction (PyMuPDF)
+- [ ] Implement document chunking
+- [ ] Setup Qdrant vector database
+- [ ] Create embedding pipeline
+- [ ] Add query endpoint
+
+### Phase 3: Advanced Features (Week 3)
+- [ ] Add URL download functionality
+- [ ] Implement reranking with cross-encoder
+- [ ] Add citation formatting
+- [ ] Optimize query response time
+
+---
+
+## 🚀 Quick Start Commands
+
+```bash
+# Start FastAPI backend
+cd src/backend
+uvicorn main:app --reload --port 8000
+
+# Start Qdrant vector database
+docker run -p 6333:6333 qdrant/qdrant
+
+# Test API endpoints
+curl -X GET http://localhost:8000/documents
+curl -X POST http://localhost:8000/upload -F "file=@test.pdf"
+```
+
+---
+
+## 🔍 Testing Strategy
+
+### Manual Testing
+- [ ] Upload PDF and verify storage
+- [ ] Check document appears in library
+- [ ] Test URL download functionality
+- [ ] Query uploaded documents
+- [ ] Verify citations are accurate
+
+### API Testing
+- [ ] Test all endpoints with Postman/curl
+- [ ] Verify error handling
+- [ ] Test with different file types
+- [ ] Validate response formats
+
+---
+
+**Focus**: Keep it simple, get RAG pipeline working end-to-end, then optimize! 🎯
 description:
 globs:
 alwaysApply: false
