@@ -4,20 +4,20 @@ alwaysApply: true
 
 # 🔧 Backend Development Flow - RAG Learning Engine
 
-## 🎯 Core Focus
+## Core Focus
 Simple backend for uploading documents/URLs, managing document library, and processing through RAG pipeline.
 
 ---
 
-## 📋 Backend Requirements
+## Backend Requirements
 
-### ✅ What We Need
+### What We Need
 - **Upload**: Single document or URL at a time
 - **Library**: Always show user's documents on frontend
 - **No Sessions**: Stateless - no user management needed
 - **RAG Processing**: Extract → Chunk → Embed → Store
 
-### ❌ What We Don't Need
+### What We Don't Need
 - User authentication/sessions
 - Complex file management
 - Batch operations
@@ -25,7 +25,7 @@ Simple backend for uploading documents/URLs, managing document library, and proc
 
 ---
 
-## 🏗️ Backend Architecture
+## Backend Architecture
 
 ```
 Frontend (Streamlit) ←→ FastAPI Backend ←→ RAG Pipeline
@@ -37,7 +37,7 @@ Frontend (Streamlit) ←→ FastAPI Backend ←→ RAG Pipeline
 
 ---
 
-## 📊 Database Schema (SQLite)
+## Database Schema (SQLite)
 
 ```sql
 -- Documents table
@@ -68,7 +68,7 @@ CREATE TABLE chunks (
 
 ---
 
-## 🛣️ API Endpoints
+## API Endpoints
 
 ### 1. Upload Document
 ```http
@@ -149,7 +149,7 @@ Response: {
 
 ---
 
-## 🔄 Backend Processing Flow
+## Backend Processing Flow
 
 ### 1. Upload Flow
 ```
@@ -192,7 +192,7 @@ Question → Retrieve Chunks → Rerank → Generate Response → Format with Ci
 
 ---
 
-## 📁 Backend File Structure
+## Backend File Structure
 
 ```
 src/backend/
@@ -208,7 +208,7 @@ src/backend/
 
 ---
 
-## 🔧 Key Components
+## Key Components
 
 ### 1. FastAPI App (`main.py`)
 ```python
@@ -284,7 +284,7 @@ async def query_rag(question: str):
 
 ---
 
-## 🎯 Development Priorities
+## Development Priorities
 
 ### Phase 1: Basic API (Week 1)
 - [ ] Setup FastAPI app with CORS
@@ -308,7 +308,7 @@ async def query_rag(question: str):
 
 ---
 
-## 🚀 Quick Start Commands
+## Quick Start Commands
 
 ```bash
 # Start FastAPI backend
@@ -325,7 +325,7 @@ curl -X POST http://localhost:8000/upload -F "file=@test.pdf"
 
 ---
 
-## 🔍 Testing Strategy
+## Testing Strategy
 
 ### Manual Testing
 - [ ] Upload PDF and verify storage
