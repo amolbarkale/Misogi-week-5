@@ -10,7 +10,7 @@ Create a **personal AI learning platform** that digests **all** of your AI‑rel
 ---
 ## ✅ Core Requirements  
 1. **Document Upload & Processing**  
-   - Ingest lecture notes, slide decks, textbooks, research papers, and diagrams.  
+   - Ingest lecture notes, slide decks, textbooks, research papers, and diagrams via file upload or URL.  
 2. **Query Decomposition**  
    - Break complex learning objectives into prerequisite concepts and sub‑topics.  
 3. **Contextual Compression**  
@@ -21,30 +21,28 @@ Create a **personal AI learning platform** that digests **all** of your AI‑rel
    - Employ a multi‑model ensemble—including cross‑encoder models—for pedagogically relevant results.  
 6. **Citation‑based Responses**  
    - Provide source tracking for all explanations and references.  
-7. **RAGAS Evaluation**  
-   - Integrate the RAGAS framework to measure **Faithfulness, Answer Relevancy, Context Precision, Context Recall,** and **Answer Correctness**.  
 ---
 ## 🛠️ Technical Requirements  
 | Layer | Tech Stack / Tools |
 | ----- | ------------------ |
-| **Backend** | FastAPI **or** Node.js |
-| **Frontend** | Streamlit **or** React dashboard with data‑visualization components |
-| **Databases** | PostgreSQL **or** MongoDB &nbsp;•&nbsp; **Vector DB** (e.g., Qdrant, Pinecone) for document embeddings |
-| **Caching** | Redis for document chunks, analysis results, and user sessions |
+| **Backend** | FastAPI with SQLite database |
+| **Frontend** | Streamlit with built-in components |
+| **Document Storage** | SQLite for metadata &nbsp;•&nbsp; Local file system (/data/uploads) for files &nbsp;•&nbsp; **Vector DB** (e.g., Qdrant, Pinecone) for document embeddings |
 | **Tool Calling** | External APIs (market data, research repositories) as needed |
 | **LLMs** | Multiple models optimized for distinct educational analysis tasks |
-| **Charts & Tables** | Render structured tables and dynamic charts directly from generated responses |
+| **Charts & Tables** | Streamlit native components for tables and visualizations |
 ---
 ## 📚 Use‑Cases (Education‑Centric)
-1. **"Create a Learning SWOT Analysis of my current AI skill set using my uploaded lecture notes and the latest research trends."**
-2. **"Generate personalized recommendations for knowledge‑expansion—identify the next topics I should study and the best resources from my own materials to master them."**
+1. **"Upload my machine learning textbook and ask: 'Explain gradient descent with examples from my materials.'"**
+2. **"Provide a URL to a research paper and ask: 'What are the key concepts I need to understand before reading this paper?'"**
+3. **"Compare different optimization algorithms based on my uploaded lecture notes and research papers."**
 ---
 ## 🔖 Deliverables
 - **Source‑code repository** with clear setup instructions  
-- **Demo video / live link** showcasing end‑to‑end workflow  
-- **Technical report** summarizing architecture, design choices, RAGAS scores, and future improvements  
+- **Streamlit demo app** showcasing end‑to‑end RAG workflow  
+- **Technical report** summarizing architecture, design choices, and RAG implementation  
 ---
-> **Tip:** Focus on modular design—keep ingestion, retrieval, reranking, and evaluation loosely coupled so each piece can evolve independently.
+> **Tip:** Focus on modular design—keep ingestion, retrieval, reranking, and generation loosely coupled so each piece can evolve independently.
 
 ---
 
@@ -72,23 +70,28 @@ Analysis    Generation     Fusion              Scoring         Citations
 **Goal:** Establish your environment and repo scaffold before writing any feature code.
 
 ### Enhanced Setup
-1. **Create repo scaffold** with microservice-oriented structure:
+1. **Create repo scaffold** with simple service structure:
    ```
    ai-learning-engine/
    ├── services/
    │   ├── ingestion/     # Document processing service
    │   ├── retrieval/     # RAG engine service  
-   │   ├── generation/    # LLM orchestration service
-   │   └── evaluation/    # RAGAS metrics service
+   │   └── generation/    # LLM orchestration service
    ├── shared/            # Common utilities, schemas
-   ├── frontend/          # Streamlit/React application
-   ├── infrastructure/    # Docker, K8s configs
-   └── data/             # Sample documents, embeddings
+   │   ├── database/      # SQLite models and migrations
+   │   └── config.py      # Settings and environment variables
+   ├── frontend/          # Streamlit application
+   ├── infrastructure/    # Docker configs
+   └── data/
+       ├── uploads/       # Local document storage
+       └── documents.db   # SQLite database
    ```
 
-2. **Setup containerized development environment**:
+2. **Setup development environment**:
    - Use `poetry` for Python dependency management
-   - Docker Compose with services: PostgreSQL, Qdrant, Redis, RabbitMQ
+   - Docker Compose with services: Qdrant
+   - SQLite database at `/data/documents.db` for metadata
+   - Local file system mounted at `/data/uploads` for document storage
    - Pre-commit hooks for code quality
 
 3. **Configure environment variables** with validation:
@@ -97,22 +100,18 @@ Analysis    Generation     Fusion              Scoring         Citations
    class Settings(BaseSettings):
        openai_api_key: str
        qdrant_url: str
-       redis_url: str
-       postgres_url: str
-       rabbitmq_url: str
+       database_url: str = "sqlite:///data/documents.db"
+       uploads_directory: str = "/data/uploads"
    ```
 
-4. **Initialize monitoring stack**: Prometheus + Grafana for observability
-
-**Deliverable:** Fully containerized development environment with monitoring
+**Deliverable:** Fully containerized development environment
 
 ---
 
-## 🔧 Phase 1: Enhanced Document Ingestion Service  
-**Goal:** Build a robust, scalable document processing pipeline with multi-modal support.
+## 🔧 Phase 1: Document Ingestion Service  
+**Goal:** Build a simple, effective document processing pipeline with multi-modal support.
 
-### Advanced Features
-- **Async Processing Queue**: Use Celery/RQ for background document processing
+### Core Features
 - **Multi-Modal Extraction**: 
   - OCR for scanned documents (Tesseract + EasyOCR)
   - Diagram extraction from images using computer vision
@@ -121,77 +120,172 @@ Analysis    Generation     Fusion              Scoring         Citations
 - **Smart Chunking**: Context-aware chunking based on document structure
 
 ### API Endpoints
-- `POST /ingest/batch` → process multiple files asynchronously
-- `POST /ingest/url/academic` → specialized academic paper ingestion
-- `GET /ingest/status/{job_id}` → track processing status
-- `POST /ingest/reprocess` → reprocess with updated extraction models
+- `POST /ingest/upload` → upload files to /data/uploads and store metadata in SQLite
+- `POST /ingest/url` → download documents from URLs and store in SQLite + filesystem
+- `GET /documents` → retrieve document list from SQLite with metadata
+- `GET /documents/{id}` → get specific document details from SQLite
+- `DELETE /documents/{id}` → remove document from SQLite and filesystem
+- `GET /documents/{id}/chunks` → retrieve document chunks for RAG queries
 
 ### Document Processing Pipeline
 ```python
-Document → Content Extraction → Structure Analysis → Chunk Generation → Embedding → Vector Store
-    ↓             ↓                    ↓               ↓              ↓           ↓
-  Metadata    Multi-modal        Hierarchical     Semantic        Dense        Indexed
- Enrichment   Processing         Parsing          Boundaries     Vectors      & Cached
+Document/URL → Local Storage → Content Extraction → Structure Analysis → Chunk Generation → Embedding → Vector Store
+      ↓            ↓               ↓                    ↓               ↓              ↓           ↓
+  Upload/       /data/uploads    Multi-modal        Hierarchical     Semantic        Dense        Indexed
+  Download      + SQLite DB      Processing         Parsing          Boundaries     Vectors      & Ready
+                Metadata
 ```
 
-**Deliverable:** Production-ready ingestion service with comprehensive document support
+### SQLite Database Schema
+```sql
+-- Documents table for metadata
+CREATE TABLE documents (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    filename TEXT NOT NULL,
+    original_filename TEXT,
+    file_path TEXT NOT NULL,
+    file_type TEXT,
+    file_size INTEGER,
+    source_url TEXT,
+    upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    processing_status TEXT DEFAULT 'pending',
+    extracted_text TEXT,
+    metadata JSON
+);
+
+-- Chunks table for RAG
+CREATE TABLE chunks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    document_id INTEGER,
+    chunk_text TEXT NOT NULL,
+    chunk_index INTEGER,
+    semantic_level INTEGER,
+    chunk_type TEXT,
+    embedding_id TEXT,
+    FOREIGN KEY (document_id) REFERENCES documents(id)
+);
+
+-- Processing logs
+CREATE TABLE processing_logs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    document_id INTEGER,
+    stage TEXT,
+    status TEXT,
+    error_message TEXT,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (document_id) REFERENCES documents(id)
+);
+```
+
+### FastAPI + SQLite Integration Example
+```python
+from fastapi import FastAPI, UploadFile, File
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, Text
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+# Database models
+Base = declarative_base()
+
+class Document(Base):
+    __tablename__ = "documents"
+    id = Column(Integer, primary_key=True)
+    filename = Column(String, nullable=False)
+    file_path = Column(String, nullable=False)
+    file_type = Column(String)
+    source_url = Column(String)
+    processing_status = Column(String, default="pending")
+    extracted_text = Column(Text)
+
+# FastAPI endpoints
+@app.post("/ingest/upload")
+async def upload_document(file: UploadFile = File(...)):
+    # Save file to /data/uploads
+    file_path = f"/data/uploads/{file.filename}"
+    with open(file_path, "wb") as f:
+        content = await file.read()
+        f.write(content)
+    
+    # Store metadata in SQLite
+    doc = Document(
+        filename=file.filename,
+        file_path=file_path,
+        file_type=file.content_type
+    )
+    db.add(doc)
+    db.commit()
+    
+    return {"document_id": doc.id, "status": "uploaded"}
+```
+
+**Deliverable:** Simple, effective ingestion service with comprehensive document support and SQLite integration
 
 ---
 
-## 🎨 Phase 2: Intelligent Frontend Architecture  
-**Goal:** Create an adaptive UI that learns user patterns and provides contextual assistance.
+## 🎨 Phase 2: Simple Streamlit Interface  
+**Goal:** Create a clean, intuitive Streamlit UI for document upload and question asking.
 
-### Enhanced UI Components
-- **Document Library with Smart Categorization**: Auto-tag documents by subject, difficulty
-- **Visual Knowledge Graph**: Interactive graph showing concept relationships
-- **Query Suggestion Engine**: Contextual query recommendations based on uploaded content
-- **Learning Progress Dashboard**: Track mastery of different topics
+### Core UI Components
+- **Document Upload Interface**: Streamlit file uploader and text input for URLs
+- **Query Interface**: Simple text input with submit button
+- **Response Display**: Formatted text with expandable sections for citations
+- **Document List**: Streamlit dataframe or list view of uploaded documents
 
-### Frontend Structure (React + TypeScript)
+### Streamlit App Structure
 ```
 frontend/
+├── main.py                 # Main Streamlit app
 ├── components/
-│   ├── DocumentLibrary/    # Smart file management
-│   ├── QueryInterface/     # Advanced search with autocomplete
-│   ├── KnowledgeGraph/     # D3.js visualization
-│   └── LearningDashboard/  # Progress tracking
-├── hooks/                  # Custom React hooks for state management
-├── services/              # API client with caching
-└── store/                # Redux/Zustand for global state
+│   ├── upload_handler.py   # File upload and URL processing
+│   ├── query_interface.py  # Query input and submission
+│   ├── response_display.py # Answer formatting with citations
+│   └── document_manager.py # Document list and management
+└── utils/
+    └── api_client.py       # Simple API calls to backend
 ```
 
-### State Management Strategy
-- **React Query**: Server state management with intelligent caching
-- **Zustand**: Client-side state for UI interactions
-- **Real-time Updates**: WebSocket connections for processing status
+### Streamlit Features
+- **Built-in Components**: File uploader, text input, dataframes, expandable sections
+- **Session State**: Simple session state management for uploaded documents and chat history
+- **Direct API Integration**: Simple requests to FastAPI backend
 
-**Deliverable:** Intelligent, responsive frontend with advanced UX patterns
+### SQLite Benefits for RAG System
+- **Structured Queries**: SQL-based filtering of documents and chunks by metadata
+- **Relationship Management**: Foreign keys between documents, chunks, and processing logs  
+- **Full-Text Search**: Built-in FTS for quick text searching within document content
+- **Transaction Support**: ACID compliance for data integrity during processing
+- **Simple Deployment**: Single file database with no server setup required
+- **Performance**: Fast queries for document metadata and chunk retrieval
+
+**Deliverable:** Clean, functional Streamlit app focused on core RAG workflow
 
 ---
 
-## 🔗 Phase 3: Smart Upload Integration with Preprocessing  
-**Goal:** Implement intelligent document preprocessing and validation.
+## 🔗 Phase 3: Simple Upload Integration  
+**Goal:** Implement straightforward document upload and basic validation.
 
-### Enhanced Upload Features
-1. **Pre-upload Analysis**:
-   - Document quality assessment (OCR confidence, text density)
-   - Content preview with extraction confidence scores
+### Core Upload Features
+1. **Multi-Source Document Input**:
+   - Direct file upload to /data/uploads directory
+   - URL-based document download and storage
+   - Basic document validation (file type, size)
    - Duplicate detection before processing
 
-2. **Batch Upload Orchestration**:
-   - Progress tracking for multiple files
-   - Error recovery and retry logic
-   - Smart prioritization (academic papers first)
+2. **Simple Processing Flow**:
+   - Immediate processing after upload/download
+   - Basic error handling and user feedback
+   - Processing status indication
 
 3. **Content Validation Pipeline**:
    ```python
-   Upload → Format Validation → Content Analysis → Quality Score → Processing Queue
-      ↓           ↓                  ↓               ↓              ↓
-    Security   MIME/Size         AI Content      Processing     Background
-    Scanning   Validation        Classification   Priority       Job Queue
+   Upload/URL → Local Storage → Format Validation → Immediate Processing → Vector Store
+        ↓           ↓               ↓                     ↓                    ↓
+    File/URL    /data/uploads    MIME/Size           Content Extraction      Ready for
+    Processing  + SQLite DB      Validation          & Embedding             Queries
+                Metadata
    ```
 
-**Deliverable:** Robust upload system with intelligent preprocessing and validation
+**Deliverable:** Simple, reliable upload system with immediate processing
 
 ---
 
@@ -209,16 +303,23 @@ frontend/
    - **Hierarchical Chunking**: Preserve document structure (sections, subsections)
    - **Context-Preserving Overlap**: Smart overlap based on topic coherence
 
-3. **Metadata Enrichment**:
+3. **Metadata Enrichment with SQLite**:
    ```python
+   # SQLite enables structured metadata with relationships
    chunk_metadata = {
-       "document_id": str,
+       "document_id": int,  # Foreign key to documents table
        "chunk_type": "text|table|figure|equation",
        "semantic_level": 1-5,  # heading level
-       "topic_tags": List[str],
+       "topic_tags": List[str],  # Stored as JSON in SQLite
        "difficulty_score": float,
-       "prerequisite_concepts": List[str]
+       "prerequisite_concepts": List[str],
+       "embedding_id": str,  # Reference to vector database
+       "parent_chunk_id": Optional[int]  # Hierarchical relationships
    }
+   
+   # SQLite queries enable powerful filtering:
+   # SELECT * FROM chunks WHERE document_id=? AND semantic_level<=2
+   # SELECT * FROM documents WHERE processing_status='completed'
    ```
 
 4. **Mathematical Content Processing**:
@@ -356,8 +457,8 @@ Retrieved Results → Pedagogical Scoring → Cross-Encoder Reranking → Contex
 
 ---
 
-## 💬 Phase 8: Advanced Answer Generation with Educational Focus  
-**Goal:** Generate pedagogically optimized responses with adaptive complexity and comprehensive citations.
+## 💬 Phase 8: Answer Generation with Educational Focus  
+**Goal:** Generate pedagogically optimized responses with comprehensive citations.
 
 ### Multi-LLM Generation Strategy
 ```python
@@ -410,143 +511,35 @@ Context + Query → LLM Routing → Specialized Generation → Response Enhancem
 
 ---
 
-## 🔗 Phase 9: Enhanced UI Integration with Real-Time Features  
-**Goal:** Create a seamless, intelligent interface with real-time collaboration and adaptive learning.
+## 🔗 Phase 9: Streamlit UI Integration  
+**Goal:** Create a seamless Streamlit interface for document upload and question answering.
 
-### Advanced UI Features
-1. **Intelligent Query Interface**:
-   - Auto-complete with context-aware suggestions
-   - Query decomposition visualization
-   - Real-time query refinement suggestions
+### Core Streamlit Features
+1. **Document Upload Section**:
+   - `st.file_uploader()` for multiple file types (PDF, DOC, TXT)
+   - `st.text_input()` for URL input
+   - Upload progress with `st.progress()`
 
-2. **Dynamic Response Rendering**:
-   - Streaming responses with progressive enhancement
-   - Interactive citations with preview on hover
-   - Collapsible sections for detailed explanations
+2. **Query Interface**:
+   - `st.text_area()` for question input
+   - `st.button()` for submission
+   - `st.spinner()` during processing
 
-3. **Collaborative Learning Features**:
-   - Annotation system for responses
-   - Bookmark and organize favorite explanations
-   - Share learning pathways with others
+3. **Response Display**:
+   - `st.markdown()` for formatted responses
+   - `st.expander()` for citation details
+   - `st.info()` for source references
 
-4. **Adaptive Learning Dashboard**:
-   ```python
-   dashboard_metrics = {
-       "knowledge_gaps": List[str],
-       "mastery_progression": Dict[str, float],
-       "recommended_topics": List[str],
-       "study_time_analytics": Dict[str, int],
-       "citation_network": Graph
-   }
-   ```
+4. **Document Management**:
+   - `st.dataframe()` for uploaded documents list
+   - `st.columns()` for document actions
+   - `st.sidebar` for document navigation
 
-### Real-Time Features Implementation
-- **WebSocket Integration**: Real-time processing updates and collaborative features
-- **Progressive Web App**: Offline capability and mobile optimization
-- **Performance Monitoring**: Client-side metrics and error tracking
-
-**Deliverable:** Production-ready frontend with advanced educational features
+**Deliverable:** Fully functional Streamlit app with intuitive RAG interface
 
 ---
 
-## 📊 Phase 10: Comprehensive Evaluation & Continuous Learning  
-**Goal:** Implement robust evaluation framework with continuous improvement mechanisms.
-
-### Enhanced RAGAS Implementation
-1. **Educational-Specific Metrics**:
-   - **Pedagogical Faithfulness**: Accuracy of educational explanations
-   - **Concept Completeness**: Coverage of essential concepts
-   - **Learning Effectiveness**: Impact on user understanding
-   - **Citation Quality**: Relevance and authority of sources
-
-2. **Automated Evaluation Pipeline**:
-   ```python
-   evaluation_pipeline = [
-       "response_generation",
-       "ragas_scoring", 
-       "educational_assessment",
-       "user_feedback_integration",
-       "model_performance_tracking"
-   ]
-   ```
-
-3. **Continuous Learning System**:
-   - User interaction analysis for query pattern recognition
-   - Feedback-driven model fine-tuning
-   - A/B testing for different explanation strategies
-
-### Advanced Monitoring Dashboard
-- **Real-time Performance Metrics**: Response time, accuracy scores, user satisfaction
-- **Educational Analytics**: Learning progress tracking, knowledge gap analysis
-- **System Health Monitoring**: Vector DB performance, LLM API usage, error rates
-
-### Quality Assurance Framework
-- **Automated Testing**: Unit tests for all RAG components
-- **Integration Testing**: End-to-end workflow validation
-- **Educational Content Review**: Subject matter expert validation
-
-**Deliverable:** Comprehensive evaluation and monitoring system with continuous improvement
-
 ---
-
-## 🚀 Phase 11: Production Optimization & Advanced Deployment  
-**Goal:** Deploy a scalable, secure, and maintainable system with advanced DevOps practices.
-
-### Advanced Optimization Strategies
-1. **Intelligent Caching Layers**:
-   - **L1 Cache**: In-memory LRU cache for frequent queries
-   - **L2 Cache**: Redis with semantic similarity caching
-   - **L3 Cache**: Pre-computed embeddings with lazy loading
-
-2. **Performance Optimizations**:
-   - **Async Processing**: All I/O operations non-blocking
-   - **Connection Pooling**: Optimized database connections
-   - **Response Streaming**: Chunk-based response delivery
-   - **Background Tasks**: Async model loading and cache warming
-
-3. **Advanced Security**:
-   - **Authentication & Authorization**: JWT-based with role management
-   - **Rate Limiting**: Adaptive limits based on user tier
-   - **Input Sanitization**: Prevent injection attacks
-   - **API Security**: CORS, CSRF protection, API versioning
-
-### Production Infrastructure
-```yaml
-# Kubernetes deployment with auto-scaling
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ai-learning-engine
-spec:
-  replicas: 3
-  strategy:
-    type: RollingUpdate
-  template:
-    spec:
-      containers:
-      - name: api-server
-        resources:
-          requests:
-            memory: "1Gi"
-            cpu: "500m"
-          limits:
-            memory: "2Gi"
-            cpu: "1000m"
-```
-
-### DevOps & Monitoring
-- **CI/CD Pipeline**: GitHub Actions with automated testing and deployment
-- **Infrastructure as Code**: Terraform for AWS/GCP provisioning
-- **Observability Stack**: Prometheus + Grafana + Jaeger for tracing
-- **Log Aggregation**: ELK stack for centralized logging
-
-### Scalability Considerations
-- **Horizontal Scaling**: Load balancer with multiple API instances
-- **Database Sharding**: Partition vector database by subject/user
-- **CDN Integration**: Static asset optimization and global distribution
-- **Auto-scaling**: Kubernetes HPA based on CPU and custom metrics
-
-**Deliverable:** Production-ready, scalable system with comprehensive DevOps pipeline
 
 ---
 
@@ -578,9 +571,9 @@ spec:
 **Decision**: Adopt microservice architecture for scalability and maintainability
 **Reasoning**: Enables independent scaling of compute-intensive components (embedding, reranking)
 
-### ADR-2: Vector Database Selection
-**Decision**: Use Qdrant for vector storage with PostgreSQL for metadata
-**Reasoning**: Better performance for educational content with rich metadata
+### ADR-2: Database Architecture Selection
+**Decision**: Use SQLite for metadata storage with Qdrant for vector embeddings and local filesystem for documents
+**Reasoning**: SQLite provides structured metadata management, relationship tracking, and full-text search while maintaining simplicity. Qdrant handles vector similarity search optimally for educational RAG.
 
 ### ADR-3: LLM Strategy
 **Decision**: Multi-LLM approach with specialized models for different tasks
