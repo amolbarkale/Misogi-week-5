@@ -43,15 +43,16 @@ Frontend (Streamlit) ←→ FastAPI Backend ←→ RAG Pipeline
 -- Documents table
 CREATE TABLE documents (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    filename TEXT NOT NULL,
-    original_name TEXT,
-    file_path TEXT,
-    source_url TEXT,
-    file_type TEXT,
-    file_size INTEGER,
+    filename TEXT NOT NULL,           -- For files: original filename, For URLs: extracted title
+    original_name TEXT,               -- Original filename for uploaded files
+    file_path TEXT,                   -- Local file path (NULL for URLs)
+    source_url TEXT,                  -- URL source (NULL for uploaded files)
+    content_type TEXT,                -- file/url to distinguish source type
+    file_type TEXT,                   -- pdf, txt, md, doc, html, etc.
+    file_size INTEGER,                -- File size (NULL for URLs)
     upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     processing_status TEXT DEFAULT 'pending',  -- pending, processing, completed, failed
-    extracted_text TEXT
+    extracted_text TEXT              -- Content extracted from file or URL
 );
 
 -- Chunks table for RAG
@@ -84,9 +85,9 @@ Response: {
 }
 ```
 
-### 2. Upload URL
+### 2. Extract from URL (LangChain WebLoader)
 ```http
-POST /upload-url
+POST /extract-url
 Content-Type: application/json
 
 Body: {
@@ -94,8 +95,9 @@ Body: {
 }
 Response: {
     "document_id": 124,
-    "filename": "downloaded_paper.pdf",
-    "status": "downloaded", 
+    "title": "Attention Is All You Need",
+    "url": "https://arxiv.org/pdf/1234.5678.pdf",
+    "status": "extracted", 
     "processing_status": "pending"
 }
 ```
@@ -151,16 +153,30 @@ Response: {
 
 ## Backend Processing Flow
 
-### 1. Upload Flow
+### 1. Upload Flow (Files vs URLs)
+
+**File Upload Flow:**
 ```
-User Upload → Save File → Store Metadata → Trigger RAG Processing
+File Upload → Save to /data/uploads → Store Metadata → Trigger RAG Processing
 ```
 
-**Steps:**
-1. Receive file/URL from frontend
-2. Save file to `/data/uploads/`
-3. Insert record in `documents` table
+**URL Extraction Flow:**
+```
+URL Input → LangChain WebLoader → Extract Content → Store Metadata → Trigger RAG Processing
+```
+
+**File Upload Steps:**
+1. Receive file (PDF, DOC, TXT, MD) from frontend
+2. Save file to `/data/uploads/` directory
+3. Insert record in `documents` table with file_path
 4. Start background RAG processing
+5. Return document_id to frontend
+
+**URL Extraction Steps:**
+1. Receive URL from frontend
+2. Use LangChain WebLoader to extract content directly
+3. Insert record in `documents` table with source_url (no file_path)
+4. Start background RAG processing with extracted content
 5. Return document_id to frontend
 
 ### 2. RAG Processing Pipeline
@@ -251,17 +267,20 @@ class DocumentResponse(BaseModel):
 
 ### 3. Upload Service (`upload_service.py`)
 ```python
+from langchain.document_loaders import WebBaseLoader, PyPDFLoader
+
 async def upload_file(file: UploadFile):
-    # Save file to disk
-    # Insert metadata to database
+    # Save file to /data/uploads/
+    # Insert metadata to database with file_path
     # Trigger RAG processing
     # Return document info
 
-async def upload_url(url: str):
-    # Download file from URL
-    # Save to disk
-    # Insert metadata to database
-    # Trigger RAG processing
+async def extract_url_content(url: str):
+    # Use LangChain WebLoader to extract content
+    # loader = WebBaseLoader(url) or appropriate loader
+    # content = loader.load()
+    # Insert metadata to database with source_url (no file_path)
+    # Trigger RAG processing with extracted content
     # Return document info
 ```
 
@@ -301,7 +320,7 @@ async def query_rag(question: str):
 - [ ] Add query endpoint
 
 ### Phase 3: Advanced Features (Week 3)
-- [ ] Add URL download functionality
+- [ ] Add LangChain WebLoader for URL content extraction
 - [ ] Implement reranking with cross-encoder
 - [ ] Add citation formatting
 - [ ] Optimize query response time
@@ -321,6 +340,7 @@ docker run -p 6333:6333 qdrant/qdrant
 # Test API endpoints
 curl -X GET http://localhost:8000/documents
 curl -X POST http://localhost:8000/upload -F "file=@test.pdf"
+curl -X POST http://localhost:8000/extract-url -H "Content-Type: application/json" -d '{"url":"https://example.com/paper.pdf"}'
 ```
 
 ---
@@ -328,11 +348,11 @@ curl -X POST http://localhost:8000/upload -F "file=@test.pdf"
 ## Testing Strategy
 
 ### Manual Testing
-- [ ] Upload PDF and verify storage
-- [ ] Check document appears in library
-- [ ] Test URL download functionality
-- [ ] Query uploaded documents
-- [ ] Verify citations are accurate
+- [ ] Upload PDF/TXT/MD files and verify storage in /data/uploads
+- [ ] Test URL content extraction with LangChain WebLoader
+- [ ] Check documents appear in library (both files and URLs)
+- [ ] Query uploaded documents and extracted URL content
+- [ ] Verify citations are accurate for both sources
 
 ### API Testing
 - [ ] Test all endpoints with Postman/curl
