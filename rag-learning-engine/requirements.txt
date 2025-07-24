@@ -1,12 +1,28 @@
+# Core web framework
 streamlit
-fastapi "uvicorn[standard]"
+fastapi
+uvicorn[standard]
+
+# Database
+sqlalchemy
+pydantic[email]
+pydantic-settings
+
+# Document processing
+PyMuPDF  # for PDF text extraction
+python-multipart  # for file uploads
+
+# RAG & AI
 sentence-transformers 
 qdrant-client 
 bge-reranker 
 tiktoken
-psycopg2-binary 
-redis
-python-multipart 
+
+# Utilities
 python-dotenv 
 requests
+
+# For future phases
+psycopg2-binary 
+redis
 ragas

@@ -355,7 +355,7 @@ curl -X POST http://localhost:8000/extract-url -H "Content-Type: application/jso
 - [ ] Verify citations are accurate for both sources
 
 ### API Testing
-- [ ] Test all endpoints with Postman/curl
+- [ ] Test all endpoints with curl
 - [ ] Verify error handling
 - [ ] Test with different file types
 - [ ] Validate response formats
@@ -363,7 +363,4 @@ curl -X POST http://localhost:8000/extract-url -H "Content-Type: application/jso
 ---
 
 **Focus**: Keep it simple, get RAG pipeline working end-to-end, then optimize! 🎯
-description:
-globs:
-alwaysApply: false
 ---
