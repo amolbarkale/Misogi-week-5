@@ -1,4 +1,4 @@
-from langchain_google_genai import GoogleGenerativeEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from sqlalchemy import create_engine, inspect
 from config import GEMINI_API_KEY, DB_PATH

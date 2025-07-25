@@ -1,4 +1,4 @@
-def generate_plan():
+def generate_plan(user_query):
     return [
         "Step 1: Identify relevant tables",
         "Step 2: Determine join paths",

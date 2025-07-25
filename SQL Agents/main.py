@@ -36,7 +36,7 @@ if user_query:
     st.write("Likely Tables Used:", relevant_tables)
 
     st.subheader("🤖 Agent Response")
-    agent = get_sql_agent()
+    agent = get_sql_agent(relevant_tables)
     with st.spinner("Generating SQL and fetching results..."):
         response = agent.run(user_query)
         st.Success(response)
