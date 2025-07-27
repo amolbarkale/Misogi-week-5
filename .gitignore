@@ -2,3 +2,4 @@ medical_ai_env/
 __pycache__
 .env
 .venv/
+service_account.json
