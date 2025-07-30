@@ -1,0 +1,29 @@
+# Core dependencies
+unstructured[all-docs]
+pillow
+lxml
+chromadb
+tiktoken
+
+# LangChain packages
+langchain
+langchain-community
+langchain-openai
+langchain-groq
+langchain-chroma
+
+# Environment management
+python-dotenv
+
+# Image processing and display
+matplotlib
+ipython
+
+# Streamlit web interface
+streamlit
+pandas
+pillow
+
+# Note: System dependencies to install separately:
+# - poppler-utils, tesseract-ocr, libmagic-dev (Linux)
+# - poppler, tesseract, libmagic (macOS via brew)
